@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/template_slider_discrete"
+    android:layout_width="match_parent"
+    android:layout_marginVertical="7dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tw_slider_discrete"
+        style="@android:style/TextAppearance.DeviceDefault.Widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/textPrimarySecond" />
+
+    <com.xw.repo.BubbleSeekBar
+        android:id="@+id/slider_discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bsb_track_color="@color/sliderPassiveLine"
+        app:bsb_second_track_color="@color/sliderActiveLine"
+        app:bsb_thumb_color="@color/sliderThumb"
+        app:bsb_show_section_text="true"
+        app:bsb_seek_step_section="true"
+        app:bsb_show_thumb_text="true"
+        app:bsb_thumb_text_color="@color/sliderThumbText"
+        app:bsb_section_text_color="@color/sliderText"
+        app:bsb_hide_bubble="true"
+        app:bsb_touch_to_seek="true"
+        app:bsb_show_section_mark="true"
+        app:bsb_seek_by_section="true"
+        app:bsb_auto_adjust_section_mark="true"
+        app:bsb_section_text_position="bottom_sides"
+        app:bsb_anim_duration="100"/>
+
+</LinearLayout>

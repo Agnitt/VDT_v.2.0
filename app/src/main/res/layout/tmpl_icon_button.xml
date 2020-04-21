@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/icon_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/popupMenuButtonBack"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:textAllCaps="false"
+    android:layout_marginTop="-6dp"
+    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+    android:textColor="@color/popupMenuButtonText"
+    app:cornerRadius="8dp"
+    app:iconTint="@color/popupMenuButtonText" />

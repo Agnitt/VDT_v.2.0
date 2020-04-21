@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!--            MAIN COLORS         -->
+
+    <color name="colorPrimary">#1F272D</color>
+    <color name="colorPrimaryDark">#1B2229</color>
+    <color name="colorPrimaryDarkest">#003528</color>
+    <color name="colorAccent">#26333D</color>
+
+
+    <!--            MAIN BACK           -->
+
+    <color name="backPrimary">#1F272D</color>
+    <color name="backPrimaryDark">#1B2229</color>
+    <color name="backAccent">#26333D</color>
+
+
+    <!--            PAGE CHANGER            -->
+
+    <color name="pageChangerPrimary">#26333D</color>
+    <color name="pageChangerPrimaryDark">#212D36</color>
+    <color name="pageChangerTextPrimary">#899197</color>
+
+
+    <!--            MAIN TEXT           -->
+
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textPrimarySecond">#ABAAB6</color>
+    <color name="textUp">#7D7F80</color>
+    <color name="textMiddle">#616E7A</color>
+    <color name="textBottom">#525E67</color>
+
+
+    <!--            SIDE MENU           -->
+
+    <color name="sideMenuText">#ABAAB6</color>
+
+    <color name="sliderThumb">#07928E</color>
+    <color name="sliderThumbText">#BBBBBB</color>
+    <color name="sliderPassiveLine">#515E6A</color>
+    <color name="sliderActiveLine">#07928E</color>
+    <color name="sliderText">#ABAAB6</color>
+
+    <color name="switchText">#ABAAB6</color>
+    <color name="switchThumbPassive">#ABAAB6</color>
+    <color name="switchThumbActive">#18A39F</color>
+    <color name="switchLinePassive">#515E6A</color>
+    <color name="switchLineActive">#003528</color>
+
+    <color name="popupMenuButtonText">#CCCCCC</color>
+    <color name="popupMenuButtonBack">#1B2229</color>
+
+    <color name="radioGroupText">#ABAAB6</color>
+    <color name="radioGroupAccent">#07928E</color>
+    <color name="radioGroupPressed">#FBB03B</color>
+
+
+    <!--            CHARTS          -->
+
+    <color name="chartLonelyPoint">#07928E</color>
+    <color name="chartFirstLine">#87B841</color>
+    <color name="chartSecondLine">#FBB03B</color>
+    <color name="chartFirstText">#87B841</color>
+    <color name="chartSecondText">#FBB03B</color>
+
+
+    <!--            BUTTONS         -->
+
+    <color name="buttonStrategyTextPassive">#07928E</color>
+    <color name="buttonStrategyTextActive">#FFFFFF</color>
+    <color name="buttonStrategyBackActive">#226C70</color>
+    <color name="buttonStrategyBord">#07928E</color>
+
+    <color name="buttonBasicVersionTextPassive">#76B743</color>
+    <color name="buttonBasicVersionTextActive">#FFFFFF</color>
+    <color name="buttonBasicVersionBackActive">#537C40</color>
+    <color name="buttonBasicVersionBord">#76B743</color>
+
+    <color name="buttonModelTextPassive">#FBB03B</color>
+    <color name="buttonModelTextActive">#FFFFFF</color>
+    <color name="buttonModelBackActive">#9A783D</color>
+    <color name="buttonModelBord">#FBB03B</color>
+
+    <color name="buttonSaveText">#E7A43A</color>
+    <color name="buttonSaveBord">#E7A43A</color>
+
+    <color name="buttonResetText">#07928E</color>
+    <color name="buttonResetBord">#07928E</color>
+    <color name="buttonResetBordActivate">#4BD6CF</color>
+
+
+
+    <!--            TABLE           -->
+
+    <color name="tableBorder">#48555F</color>
+    <color name="tableTextPrimary">#515E6A</color>
+    <color name="tableTextAccent">#CCCCCC</color>
+    <color name="tableTextStrategy">#07928E</color>
+    <color name="tableTextPressedCell">#FBB03B</color>
+    <color name="tableBackPressedCells">#43505A</color>
+    <color name="tableTextPressedCells">#67747F</color>
+
+
+</resources>

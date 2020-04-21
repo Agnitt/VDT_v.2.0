@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/backPrimary</item>
+        <item name="colorPrimaryDark">@color/backPrimaryDark</item>
+        <item name="colorAccent">@color/backAccent</item>
+
+        <item name="colorControlNormal">@color/textMiddle</item>
+        <item name="colorControlActivated">@color/textMiddle</item>
+
+    </style>
+
+    <style name="Accent" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:color">@color/chartLonelyPoint</item>
+    </style>
+
+    <style name="CustomSwitch" parent="Theme.MaterialComponents.Light">
+        <!-- активное состояние (30% прозрачности для фона) -->
+        <item name="colorControlActivated">@color/switchThumbActive</item>
+
+        <!-- неактивное состояние ползунка -->
+        <item name="colorSwitchThumbNormal">@color/switchThumbPassive</item>
+
+        <!-- цвет дорожки для активного состояния -->
+        <item name="trackTint">@color/colorPrimaryDarkest</item>
+
+        <!-- цвет дорожки для неактивного состояния -->
+        <item name="android:colorForeground">@color/switchLinePassive</item>
+    </style>
+
+</resources>

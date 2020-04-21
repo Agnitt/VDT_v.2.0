@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">VDT</string>
+    <string name="header_text">Драйверы модели стратегии</string>
+    <string name="main_factor">Ключевые факторы</string>
+    <string name="opex">OPEX</string>
+    <string name="macro_and_cb">Макро и ЦБ</string>
+    <string name="ecosystem">Экосистема</string>
+    <string name="sensitivity">Чувствительность</string>
+    <string name="strategy">Стратегия 2020</string>
+    <string name="model">Моделирование</string>
+    <string name="basic_v">Базовая версия</string>
+    <string name="year">Выбор года:</string>
+    <string name="year_1lvl">  2020</string>
+    <string name="year_2lvl">  2021</string>
+    <string name="year_3lvl">  2022</string>
+    <string name="year_4lvl">  2023</string>
+    <string name="label_1">Чистая прибыль</string>
+    <string name="label_3">млрд.руб</string>
+    <string name="label_4">(0.0)</string>
+    <string name="label_2">1268.9</string>
+
+    <string name="text_main_factors_seekBar1">Доля дивидендов</string>
+    <string name="text_main_factors_seekBar2">Темп прироста ЧКД, %</string>
+    <string name="text_main_factors_seekBar3">Ставка отчислений в АСВ, %</string>
+    <string name="text_main_factors_switch1">Продажа СБЕ</string>
+    <string name="text_main_factors_popMenuNim">NIM (Чистая процентная маржа), %</string>
+    <string name="text_main_factors_popMenuCor">COR (Стоимость риска), %</string>
+
+    <string name="text_opex_popMenu">Индексация РОТ</string>
+    <string name="text_opex_seekBar1">Доп. ежегодное сокращение числонности, %</string>
+    <string name="text_opex_seekBar2">Резерв на годовую премию, млрд. руб</string>
+    <string name="text_opex_seekBar3">Рост тарифов (недвижимость), %</string>
+
+    <string name="text_macro_cb_popMenuUSD">Курс USD</string>
+
+    <string name="text_ecosystem_popMenu">Инвестиции в Экосистему</string>
+
+    <string name="text_sens_nameMenu">Матрица эластичности</string>
+    <string name="text_sens_radioGroup1">CAGR ЧКД, %</string>
+    <string name="text_sens_radioGroup2">NIM, %</string>
+    <string name="text_sens_radioGroup3">CIR, %</string>
+    <string name="text_sens_radioGroup4">COR, %</string>
+
+    <string name="menu">Меню</string>
+    <string name="settings">Насторойки</string>
+    <string name="home">Вернуться домой</string>
+
+</resources>
