@@ -1,5 +1,6 @@
-package com.agnitt.vdt
+package com.agnitt.vdt.utils
 
+import android.app.ActionBar
 import android.app.Activity
 import android.app.Application
 import android.content.Context
@@ -9,32 +10,13 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.agnitt.vdt.Utils.Companion.ACT
-import com.agnitt.vdt.Utils.Companion.APP
-import com.google.android.material.button.MaterialButton
-import com.xw.repo.BubbleSeekBar
+import com.agnitt.vdt.R
+import com.agnitt.vdt.utils.Utils.Companion.ACT
+import com.agnitt.vdt.utils.Utils.Companion.APP
 import kotlin.math.pow
 import kotlin.math.roundToInt
-
-typealias ArrDataSet = Array<Pair<Float, Boolean>>
-typealias ArrLabelsSet = Array<Pair<String, String>>
-
-typealias VG = ViewGroup
-typealias LL = LinearLayout
-typealias TV = TextView
-typealias RG = RadioGroup
-typealias RB = RadioButton
-typealias MB = MaterialButton
-typealias Sw = Switch
-typealias BSB = BubbleSeekBar
-typealias VG_LP = ViewGroup.LayoutParams
-typealias CL_LP = ConstraintLayout.LayoutParams
-typealias LL_LP = LinearLayout.LayoutParams
-typealias RL_LP = RelativeLayout.LayoutParams
-typealias Formula = (Int, Float) -> Float
 
 class Utils : Application() {
     init {
@@ -77,13 +59,6 @@ fun getUniqueID(): Int {
     val id = SystemClock.currentThreadTimeMillis().toInt()
     return if (id < 20000) id + 20000 else id
 }
-
-//fun listen(vararg view: View) = view.forEach {
-//    when (it) {
-//        is RG -> it.setOnCheckedChangeListener { group, id -> run { pressRG(group, get(id)) } }
-//        else -> it.setOnTouchListener(tListener)
-//    }
-//}
 
 // параметры LP
 const val llMatchParent = LL_LP.MATCH_PARENT

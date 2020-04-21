@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VDT</string>
+    <string name="app_name">Драйверы модели стратегии</string>
     <string name="header_text">Драйверы модели стратегии</string>
     <string name="main_factor">Ключевые факторы</string>
     <string name="opex">OPEX</string>
@@ -10,10 +10,10 @@
     <string name="model">Моделирование</string>
     <string name="basic_v">Базовая версия</string>
     <string name="year">Выбор года:</string>
-    <string name="year_1lvl">  2020</string>
-    <string name="year_2lvl">  2021</string>
-    <string name="year_3lvl">  2022</string>
-    <string name="year_4lvl">  2023</string>
+    <string name="year_1">  2020</string>
+    <string name="year_2">  2021</string>
+    <string name="year_3">  2022</string>
+    <string name="year_4">  2023</string>
     <string name="label_1">Чистая прибыль</string>
     <string name="label_3">млрд.руб</string>
     <string name="label_4">(0.0)</string>
@@ -44,5 +44,6 @@
     <string name="menu">Меню</string>
     <string name="settings">Насторойки</string>
     <string name="home">Вернуться домой</string>
+    <string name="action_settings">menu</string>
 
 </resources>

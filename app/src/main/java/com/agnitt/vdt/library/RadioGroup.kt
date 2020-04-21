@@ -2,9 +2,16 @@ package com.agnitt.vdt.library
 
 import android.content.res.ColorStateList
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.RadioButton
 import com.agnitt.vdt.*
-import com.agnitt.vdt.Utils.Companion.APP
+import com.agnitt.vdt.data.pressRadioGroup
+import com.agnitt.vdt.utils.RG
+import com.agnitt.vdt.utils.Utils.Companion.APP
+import com.agnitt.vdt.utils.VG
+import com.agnitt.vdt.utils.getUniqueID
+import com.agnitt.vdt.utils.inflate
 import kotlinx.android.synthetic.main.tmpl_radio_group.view.*
 
 class RadioGroup {
@@ -18,7 +25,10 @@ class RadioGroup {
                 )
             }
             setOnCheckedChangeListener { group, id ->
-                pressRadioGroup(group, get(id))
+                pressRadioGroup(
+                    group,
+                    com.agnitt.vdt.utils.get(id)
+                )
             }
         }.apply { parent?.addView(this) }
 
@@ -29,10 +39,10 @@ class RadioGroup {
             tag = position
             this.isChecked = isChecked
             if (isChecked) {
-                setTextColor(get<Int>(R.color.radioGroupAccent))
+                setTextColor(com.agnitt.vdt.utils.get<Int>(R.color.radioGroupAccent))
                 buttonTintList = (ColorStateList(
                     arrayOf(intArrayOf(android.R.attr.state_enabled)),
-                    intArrayOf(get(R.color.radioGroupAccent))
+                    intArrayOf(com.agnitt.vdt.utils.get(R.color.radioGroupAccent))
                 ))
             }
             Log.d("LOG_RB_IDS", id.toString())
@@ -41,11 +51,23 @@ class RadioGroup {
 
 fun RadioButton.checked() {
     if (!isChecked) {
-        setTextColor(get<Int>(R.color.radioGroupAccent))
+        setTextColor(com.agnitt.vdt.utils.get<Int>(R.color.radioGroupAccent))
         buttonTintList = (ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_enabled)),
-            intArrayOf(get(R.color.radioGroupAccent))
+            intArrayOf(com.agnitt.vdt.utils.get(R.color.radioGroupAccent))
         ))
         isChecked = true
+    }
+}
+
+inline fun RG.forEach(action: (view: View) -> Unit) {
+    for (index in 0 until childCount) {
+        action(getChildAt(index))
+    }
+}
+
+inline fun RG.forEachIndexed(action: (index: Int, view: View) -> Unit) {
+    for (index in 0 until childCount) {
+        action(index, getChildAt(index))
     }
 }

@@ -2,6 +2,10 @@ package com.agnitt.vdt.library
 
 import android.graphics.drawable.Drawable
 import com.agnitt.vdt.*
+import com.agnitt.vdt.utils.LL
+import com.agnitt.vdt.utils.MB
+import com.agnitt.vdt.utils.VG
+import com.agnitt.vdt.utils.inflateMaterial
 import com.google.android.material.button.MaterialButton
 
 class IconButton {
@@ -23,7 +27,7 @@ fun MaterialButton.iconEnd(icon: Drawable) {
 }
 
 fun MaterialButton.popupHide() {
-    icon = get(R.drawable.arrow_down)
+    icon = com.agnitt.vdt.utils.get(R.drawable.arrow_down)
     iconPadding = 5
     iconGravity = MaterialButton.ICON_GRAVITY_END
     iconSize = 13
@@ -31,7 +35,7 @@ fun MaterialButton.popupHide() {
 }
 
 fun MaterialButton.popupOpen() {
-    icon = get(R.drawable.arrow_up)
+    icon = com.agnitt.vdt.utils.get(R.drawable.arrow_up)
     iconPadding = 5
     iconGravity = MaterialButton.ICON_GRAVITY_END
     iconSize = 13

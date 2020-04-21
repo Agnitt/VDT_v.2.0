@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/action_settings"
+    android:icon="@drawable/ic_menu_white_24dp"
+    android:orderInCategory="100"
+    android:title="@string/action_settings"
+    app:showAsAction="always">
+
+    <item
+        android:id="@+id/i_flip_side_menu"
+        android:checked="false"
+        android:contentDescription="Переместить боковое меню"
+        android:icon="@drawable/ic_flip_gray_24dp"
+        android:title="Переместить боковое меню"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/i_hide_side_menu"
+        android:checked="true"
+        android:contentDescription="Скрыть/показать боковое меню"
+        android:icon="@drawable/ic_show_orange_24dp"
+        android:title="Скрыть/показать боковое меню"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/i_save_parameters_side_menu"
+        android:checked="false"
+        android:contentDescription="Сохранять значения параметров"
+        android:icon="@drawable/ic_star_border_gray_24dp"
+        android:title="Сохранять значения параметров"
+        app:showAsAction="ifRoom" />
+
+</menu>

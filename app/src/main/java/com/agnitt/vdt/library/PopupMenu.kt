@@ -2,6 +2,7 @@ package com.agnitt.vdt.library
 
 import android.view.View
 import com.agnitt.vdt.*
+import com.agnitt.vdt.utils.*
 
 class PopupMenu {
     fun create(idParent: Int, text: String, parent: VG?, vararg content: View?) =
@@ -11,18 +12,19 @@ class PopupMenu {
             this.id = idParent
             val iconButton = IconButton().create(
                 idParent, this, text, idBody,
-                get(R.drawable.arrow_down)
+                com.agnitt.vdt.utils.get(R.drawable.arrow_down)
             )
 
             addView(((this inflate R.layout.content_popup) as LL).apply {
                 id = idBody
                 this.tag = idParent
 
-                background = get(R.color.popupMenuButtonBack)
+                background =
+                    com.agnitt.vdt.utils.get(R.color.popupMenuButtonBack)
                 content.forEach { x ->
                     if (x != null) {
-                        x.setBackgroundColor(get(R.color.popupMenuButtonBack))
-                        this.setBackgroundColor(get(R.color.popupMenuButtonBack))
+                        x.setBackgroundColor(com.agnitt.vdt.utils.get(R.color.popupMenuButtonBack))
+                        this.setBackgroundColor(com.agnitt.vdt.utils.get(R.color.popupMenuButtonBack))
                         this.addView(x)
                     }
                     this.addView(
@@ -38,16 +40,19 @@ class PopupMenu {
             })
 
             iconButton.setOnClickListener { v ->
-                val popupBody = get<LL>(v.tag.toString().toInt())
-                val popup = get<LL>(v.id)
+                val popupBody =
+                    com.agnitt.vdt.utils.get<LL>(v.tag.toString().toInt())
+                val popup = com.agnitt.vdt.utils.get<LL>(v.id)
 
                 if (popupBody.height == 0) {
                     (v as MB).popupOpen()
-                    popup.background = get(R.color.popupMenuButtonBack)
+                    popup.background =
+                        com.agnitt.vdt.utils.get(R.color.popupMenuButtonBack)
                     popupBody.open()
                 } else {
                     (v as MB).popupHide()
-                    popup.background = get(android.R.color.transparent)
+                    popup.background =
+                        com.agnitt.vdt.utils.get(android.R.color.transparent)
                     popupBody.hide()
                 }
             }

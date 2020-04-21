@@ -1,9 +1,7 @@
-package com.agnitt.vdt
+package com.agnitt.vdt.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.agnitt.vdt.DATABASE_VERSION
-import com.agnitt.vdt.PageDAO
 import com.agnitt.vdt.models.Chart
 import com.agnitt.vdt.models.Page
 import com.agnitt.vdt.models.SideItem

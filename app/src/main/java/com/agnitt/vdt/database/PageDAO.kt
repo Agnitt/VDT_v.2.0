@@ -1,4 +1,4 @@
-package com.agnitt.vdt
+package com.agnitt.vdt.database
 
 
 import androidx.room.*

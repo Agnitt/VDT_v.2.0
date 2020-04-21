@@ -1,4 +1,4 @@
-package com.agnitt.vdt
+package com.agnitt.vdt.database
 
 const val DATABASE_NAME = "DATABASE"
 const val DATABASE_VERSION = 1

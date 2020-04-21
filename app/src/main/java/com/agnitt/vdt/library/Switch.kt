@@ -1,6 +1,9 @@
 package com.agnitt.vdt.library
 
 import com.agnitt.vdt.*
+import com.agnitt.vdt.utils.Sw
+import com.agnitt.vdt.utils.VG
+import com.agnitt.vdt.utils.inflate
 import kotlin.collections.get
 
 class Switch {

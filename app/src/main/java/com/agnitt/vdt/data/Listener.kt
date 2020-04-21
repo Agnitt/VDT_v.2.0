@@ -1,8 +1,9 @@
-package com.agnitt.vdt
+package com.agnitt.vdt.data
 
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.agnitt.vdt.library.checked
+import com.agnitt.vdt.utils.BSB
 import com.xw.repo.BubbleSeekBar
 
 class Listener : BubbleSeekBar.OnProgressChangedListener {

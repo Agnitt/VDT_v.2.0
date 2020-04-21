@@ -1,4 +1,4 @@
-package com.agnitt.vdt.data
+package com.agnitt.vdt.database
 
 import androidx.room.TypeConverter
 

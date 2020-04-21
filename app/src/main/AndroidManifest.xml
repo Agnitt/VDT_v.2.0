@@ -4,16 +4,18 @@
     package="com.agnitt.vdt">
 
     <application
+        android:name="com.agnitt.vdt.utils.Utils"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@drawable/ic_show_chart_green_24dp"
         android:label="@string/app_name"
-        android:name="com.agnitt.vdt.Utils"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_show_chart_green_24dp"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".activities.MainActivity">
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".activities.MainActivity"
+            android:logo="@drawable/home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

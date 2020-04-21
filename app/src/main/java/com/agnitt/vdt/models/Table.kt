@@ -1,11 +1,11 @@
 package com.agnitt.vdt.models
 
 import androidx.room.*
-import com.agnitt.vdt.KEY_OWNER_ID
-import com.agnitt.vdt.KEY_TABLE_ID
-import com.agnitt.vdt.KEY__DATALIST
-import com.agnitt.vdt.TABLE_OF_TABLES
-import com.agnitt.vdt.data.DataListConverter
+import com.agnitt.vdt.database.KEY_OWNER_ID
+import com.agnitt.vdt.database.KEY_TABLE_ID
+import com.agnitt.vdt.database.KEY__DATALIST
+import com.agnitt.vdt.database.TABLE_OF_TABLES
+import com.agnitt.vdt.database.DataListConverter
 
 @Entity(
     tableName = TABLE_OF_TABLES

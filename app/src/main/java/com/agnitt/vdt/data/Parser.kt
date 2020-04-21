@@ -1,6 +1,8 @@
-package com.agnitt.vdt
+package com.agnitt.vdt.data
 
-import com.agnitt.vdt.Utils.Companion.APP
+import com.agnitt.vdt.utils.GET_ALL_PAGES
+import com.agnitt.vdt.utils.LOCAL_HOST
+import com.agnitt.vdt.utils.Utils.Companion.APP
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest

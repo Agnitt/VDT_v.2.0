@@ -1,8 +1,7 @@
 package com.agnitt.vdt.models
 
 import androidx.room.*
-import com.agnitt.vdt.*
-import com.agnitt.vdt.data.IdsListConverter
+import com.agnitt.vdt.database.*
 
 @Entity(tableName = TABLE_OF_PAGES)
 class Page {

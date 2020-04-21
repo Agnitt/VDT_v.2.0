@@ -1,7 +1,10 @@
 package com.agnitt.vdt.library
 
 import com.agnitt.vdt.*
-import com.agnitt.vdt.Listener.Companion.listener
+import com.agnitt.vdt.data.Listener.Companion.listener
+import com.agnitt.vdt.utils.LL
+import com.agnitt.vdt.utils.VG
+import com.agnitt.vdt.utils.inflate
 import kotlinx.android.synthetic.main.tmpl_discrete_slider.view.*
 import kotlinx.android.synthetic.main.tmpl_switch_slider.view.*
 
