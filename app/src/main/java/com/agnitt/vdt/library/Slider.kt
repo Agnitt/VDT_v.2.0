@@ -1,17 +1,26 @@
 package com.agnitt.vdt.library
 
-import com.agnitt.vdt.*
+import com.agnitt.vdt.R
 import com.agnitt.vdt.data.Listener.Companion.listener
 import com.agnitt.vdt.utils.LL
 import com.agnitt.vdt.utils.VG
+import com.agnitt.vdt.utils.add
 import com.agnitt.vdt.utils.inflate
 import kotlinx.android.synthetic.main.tmpl_discrete_slider.view.*
 import kotlinx.android.synthetic.main.tmpl_switch_slider.view.*
 
 class DiscreteSlider {
+    init {
+        ds = this
+    }
+
+    companion object {
+        lateinit var ds: DiscreteSlider
+    }
+
     fun create(
-        id: Int, parent: VG?, text: String, dataList: List<Float>,
-        progress: Float, sectionCount: Int = 4
+        position: Int?, id: Int, parent: VG?, text: String,
+        dataList: List<Float>, progress: Float, sectionCount: Int = 4
     ) = ((parent inflate R.layout.tmpl_discrete_slider) as LL).apply {
         tw_slider_discrete.text = text
         slider_discrete.apply {
@@ -30,11 +39,22 @@ class DiscreteSlider {
             }
             onProgressChangedListener = listener
         }
-    }.apply { parent?.addView(this) }
+    }.apply { parent?.add(this, position) }
 }
 
 class SwitchSlider {
-    fun create(id: Int, parent: VG?, text: String, dataList: List<Float>, progress: Float) =
+    init {
+        sws = this
+    }
+
+    companion object {
+        lateinit var sws: SwitchSlider
+    }
+
+    fun create(
+        position: Int?, id: Int, parent: VG?, text: String,
+        dataList: List<Float>, progress: Float
+    ) =
         ((parent inflate R.layout.tmpl_switch_slider) as LL).apply {
             tw_slider_switch.text = text
             slider_switch.apply {
@@ -55,7 +75,7 @@ class SwitchSlider {
                 tw_slider_switch_min.text = dataList[0].toString()
                 tw_slider_switch_max.text = dataList[1].toString()
             }
-        }.apply { parent?.addView(this) }
+        }.apply { parent?.add(this, position) }
 
 
 }

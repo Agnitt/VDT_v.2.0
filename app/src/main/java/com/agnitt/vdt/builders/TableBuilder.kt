@@ -9,19 +9,29 @@ import android.text.style.MetricAffectingSpan
 import android.text.style.RelativeSizeSpan
 import android.view.View
 import android.widget.*
+import androidx.core.view.forEachIndexed
 import com.agnitt.vdt.R
-import com.agnitt.vdt.library.forEachIndexed
+import com.agnitt.vdt.models.Table
 import com.agnitt.vdt.utils.*
 import com.agnitt.vdt.utils.Utils.Companion.ACT
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.tmpl_table_side_menu.*
 
-class TableBuilder(private val tableId: Long, private val dataList: List<String>) {
+class TableBuilder {
+    init {
+        tableBuilder = this
+    }
+
+    companion object {
+        lateinit var tableBuilder: TableBuilder
+    }
+
     private var dWidth: Int = 0
     private var dHeight: Int = 0
 
-    lateinit var tableLayout: TableLayout
-    lateinit var parent: VG
+    private lateinit var dataList: List<String>
+    private lateinit var tableLayout: TableLayout
+    private lateinit var parent: VG
 
     private val rows = 22
     private val columns = 15
@@ -41,38 +51,53 @@ class TableBuilder(private val tableId: Long, private val dataList: List<String>
     )
 
     fun init(): TableBuilder {
+        parent = ACT.cl_content_main
         dWidth = (ACT.windowManager.defaultDisplay.width * 0.8).toInt()
         dHeight = (ACT.windowManager.defaultDisplay.height * 0.92).toInt()
         return this
     }
 
-    fun build() {
-        parent = ACT.cl_content_main
+    fun buildDashboard(tables: List<Table>): TableBuilder {
+        tableLayout = (parent inflate R.layout.table_dashboard) as TableLayout
         parent.removeAllViews()
-        parent.addView(((parent inflate R.layout.table_dashboard) as TableLayout).apply {
-            tableLayout = this
-            this.id = tableId.toInt()
-            var tv: TextView
-            val funIf = { i: Int, j: Int -> if (i == 0) (j - 3) else (i * 12 + (j - 3)) }
-            for (i in 0 until rows) tableLayout.addView(TableRow(ACT.applicationContext).apply {
-                for (j in 0 until columns) {
-                    tv = ((null as VG?) inflate R.layout.tmpl_cell) as TV
-                    when {
-                        i < 2 && j < 3 -> addView(setElem(tv, i, j, valNames[i * 3 + j]), j)
-                        i < 2 && j >= 3 -> addView(setElem(tv, i, j, valNimChkd[funIf(i, j)]), j)
-                        j < 3 -> addView(setElem(tv, i, j, valCirCor[(i - 2) * 3 + j]), j)
-                        else -> addView(
-                            setElem(
-                                tv, i, j, this@TableBuilder.dataList[(i - 2) * 12 + j - 3]
-                            ), j
-                        )
-                    }
-                }
-            }, i)
-        })
+        parent.addView(tableLayout)
+
+        (tableLayout.layoutParams as CL_LP).apply {
+            margins(0, 0, 20, 20)
+            leftToRight = CL_LP.PARENT_ID
+            topToTop = CL_LP.PARENT_ID
+            bottomToBottom = CL_LP.PARENT_ID
+            tableLayout.requestLayout()
+        }
+        tables.forEach { table -> parse(table).build() }
+        return this
     }
 
-    fun rebuild() {
+
+    fun parse(table: Table): TableBuilder {
+        dataList = table.dataList.map { it.toString() }
+        tableLayout.id = table.tableId.toInt()
+        return this
+    }
+
+    fun build() {
+        val funIf = { i: Int, j: Int -> if (i == 0) (j - 3) else (i * 12 + (j - 3)) }
+        for (i in 0 until rows) tableLayout.addView(TableRow(ACT.applicationContext).let { tr ->
+            for (j in 0 until columns) {
+                val tv = ((null as VG?) inflate R.layout.tmpl_cell) as TV
+                when {
+                    i < 2 && j < 3 -> tr.addView(setElem(tv, i, j, valNames[i * 3 + j]), j)
+                    i < 2 && j >= 3 -> tr.addView(setElem(tv, i, j, valNimChkd[funIf(i, j)]), j)
+                    j < 3 -> tr.addView(setElem(tv, i, j, valCirCor[(i - 2) * 3 + j]), j)
+                    else -> tr.addView(setElem(tv, i, j, this.dataList[(i - 2) * 12 + j - 3]), j)
+                }
+            }
+            return@let tr
+        }, i)
+    }
+
+    fun rebuild(table: Table) {
+        parse(table)
         tableLayout.removeAllViews()
         build()
     }
@@ -216,7 +241,7 @@ class TableBuilder(private val tableId: Long, private val dataList: List<String>
         return spanString
     }
 
-    inner class CustomSpan : MetricAffectingSpan() {
+    private inner class CustomSpan : MetricAffectingSpan() {
         private var ratio = 0.15
 
         override fun updateDrawState(paint: TextPaint) {

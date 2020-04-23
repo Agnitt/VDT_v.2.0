@@ -5,11 +5,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.agnitt.vdt.R
-import com.agnitt.vdt.builders.TableBuilder
-import com.agnitt.vdt.builders.flipSideMenu
-import com.agnitt.vdt.builders.hideSideMenu
-import com.agnitt.vdt.builders.saveParameters
+import com.agnitt.vdt.builders.*
 import com.agnitt.vdt.data.Listener
+import com.agnitt.vdt.models.Page
+import com.agnitt.vdt.models.Table
 import com.agnitt.vdt.utils.Utils
 import kotlin.random.Random
 
@@ -18,14 +17,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         Listener()
+        ChartsBuilder()
+        TableBuilder()
+        SideMenuBuilder()
+
         Utils.apply {
             ACT = this@MainActivity
         }
 
 
 
-//        TableBuilder(MutableList(12 * 20) { Random.nextInt(983, 1012).toString() }).init().build()
+//        TableBuilder().init().parse(Table(3974, 10,MutableList(12 * 20) { Random.nextInt(983, 1012).toFloat() })).build()
 
 //        PopupMenu().create(
 //            getUniqueID(),

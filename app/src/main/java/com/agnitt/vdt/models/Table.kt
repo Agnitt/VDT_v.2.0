@@ -1,23 +1,8 @@
 package com.agnitt.vdt.models
 
-import androidx.room.*
-import com.agnitt.vdt.database.KEY_OWNER_ID
-import com.agnitt.vdt.database.KEY_TABLE_ID
-import com.agnitt.vdt.database.KEY__DATALIST
-import com.agnitt.vdt.database.TABLE_OF_TABLES
-import com.agnitt.vdt.database.DataListConverter
-
-@Entity(
-    tableName = TABLE_OF_TABLES
-)
-class Table {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = KEY_TABLE_ID, index = true)
+class Table : MainItem {
     var tableId: Long = 0
-    @ColumnInfo(name = KEY_OWNER_ID)
-    var ownerId: Long = 0
-    @TypeConverters(DataListConverter::class)
-    @ColumnInfo(name = KEY__DATALIST)
+    override var ownerId: Long = 0
     var dataList: List<Float>
 
     constructor(tableId: Long, ownerId: Long, dataList: List<Float>) {
@@ -26,9 +11,7 @@ class Table {
         this.dataList = dataList
     }
 
-    @Ignore
     constructor(ownerId: Long, dataList: List<Float>) {
-        this.tableId = tableId
         this.ownerId = ownerId
         this.dataList = dataList
     }
@@ -36,3 +19,39 @@ class Table {
     override fun toString(): String =
         "\n[TABLE]\ntableId = $tableId\nownerId = $ownerId\ndataList = $dataList"
 }
+
+/**
+ * class for room
+ *
+
+@Entity(
+tableName = TABLE_OF_TABLES
+)
+class Table {
+@PrimaryKey(autoGenerate = true)
+@ColumnInfo(name = KEY_TABLE_ID, index = true)
+var tableId: Long = 0
+@ColumnInfo(name = KEY_OWNER_ID)
+var ownerId: Long = 0
+@TypeConverters(DataListConverter::class)
+@ColumnInfo(name = KEY__DATALIST)
+var dataList: List<Float>
+
+constructor(tableId: Long, ownerId: Long, dataList: List<Float>) {
+this.tableId = tableId
+this.ownerId = ownerId
+this.dataList = dataList
+}
+
+@Ignore
+constructor(ownerId: Long, dataList: List<Float>) {
+this.tableId = tableId
+this.ownerId = ownerId
+this.dataList = dataList
+}
+
+override fun toString(): String =
+"\n\[TABLE]\ntableId = $tableId\nownerId = $ownerId\ndataList = $dataList"
+}
+
+ **/

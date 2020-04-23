@@ -1,13 +1,16 @@
 package com.agnitt.vdt.library
 
 import com.agnitt.vdt.*
-import com.agnitt.vdt.utils.TV
-import com.agnitt.vdt.utils.VG
-import com.agnitt.vdt.utils.VG_LP
-import com.agnitt.vdt.utils.inflate
+import com.agnitt.vdt.utils.*
 
 class TextView {
-    fun create(id: Int, parent: VG?, text: String, textColor: Int) =
+    init {
+        tv = this
+    }
+    companion object{
+        lateinit var tv: TextView
+    }
+    fun create(position:Int?,id: Int, parent: VG?, text: String, textColor: Int) =
         ((parent inflate R.layout.tmpl_text_view) as TV).apply {
             layoutParams = VG_LP(
                 VG_LP.MATCH_PARENT,
@@ -16,5 +19,5 @@ class TextView {
             this.text = text
             this.id = id
             setTextColor(com.agnitt.vdt.utils.get<Int>(textColor))
-        }.apply { parent?.addView(this) }
+        }.apply { parent?.add(this, position) }
 }

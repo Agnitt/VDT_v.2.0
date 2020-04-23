@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/textPrimarySecond" />
+        android:textColor="@color/textMuted" />
 
     <com.xw.repo.BubbleSeekBar
         android:id="@+id/slider_switch"

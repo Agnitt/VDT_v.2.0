@@ -11,6 +11,8 @@ typealias ArrLabelsSet = Array<Pair<String, String>>
 
 typealias VG = ViewGroup
 typealias LL = LinearLayout
+typealias CL = ConstraintLayout
+typealias FL = FrameLayout
 typealias TV = TextView
 typealias RG = RadioGroup
 typealias RB = RadioButton

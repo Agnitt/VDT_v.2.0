@@ -1,6 +1,5 @@
 package com.agnitt.vdt.utils
 
-import android.app.ActionBar
 import android.app.Activity
 import android.app.Application
 import android.content.Context
@@ -15,6 +14,9 @@ import androidx.appcompat.view.ContextThemeWrapper
 import com.agnitt.vdt.R
 import com.agnitt.vdt.utils.Utils.Companion.ACT
 import com.agnitt.vdt.utils.Utils.Companion.APP
+import com.agnitt.vdt.utils.Utils.Companion.YEAR
+import com.github.mikephil.charting.data.Entry
+import java.util.*
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -26,6 +28,8 @@ class Utils : Application() {
     companion object {
         lateinit var APP: Application
         lateinit var ACT: Activity
+
+        val YEAR = Calendar.getInstance().get(Calendar.YEAR)
     }
 }
 
@@ -35,12 +39,17 @@ fun Any?.toast() {
     Toast.makeText(APP, this.toString(), Toast.LENGTH_LONG).show()
 }
 
+infix fun <T> Boolean.so(resultIfTrue: T): T? = if (this) resultIfTrue else null
+
 infix fun VG?.inflate(id: Int) =
     (APP.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
         .inflate(id, this, false)
 
 infix fun VG?.inflateMaterial(id: Int) =
     (View.inflate(ContextThemeWrapper(APP, R.style.AppTheme), id, this) as LL).getChildAt(0)
+
+fun VG?.add(view: View, position: Int?) =
+    if (position != null) this?.addView(view, position) else this?.addView(view)
 
 inline fun <reified T> get(id: Int): T = when (T::class) {
     String::class -> ACT.resources.getString(id) as T
@@ -54,6 +63,11 @@ inline fun <reified T> get(id: Int): T = when (T::class) {
 infix fun String.of(src: String) = src.contains(this, true)
 infix fun Float.round(precision: Int) =
     (this * (10F).pow(precision)).roundToInt() / (10F).pow(precision)
+
+fun List<Float>.toEntries() =
+    mapIndexed { i, value -> Entry((i + YEAR).toFloat(), value) }
+
+fun <T> MutableList<T>.addIfNotNull(item: T?) = if (item != null) add(item) else false
 
 fun getUniqueID(): Int {
     val id = SystemClock.currentThreadTimeMillis().toInt()

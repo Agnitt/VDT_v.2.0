@@ -26,7 +26,7 @@
     <!--            MAIN TEXT           -->
 
     <color name="textPrimary">#FFFFFF</color>
-    <color name="textPrimarySecond">#ABAAB6</color>
+    <color name="textMuted">#ABAAB6</color>
     <color name="textUp">#7D7F80</color>
     <color name="textMiddle">#616E7A</color>
     <color name="textBottom">#525E67</color>
@@ -51,19 +51,17 @@
     <color name="popupMenuButtonText">#CCCCCC</color>
     <color name="popupMenuButtonBack">#1B2229</color>
 
-    <color name="radioGroupText">#ABAAB6</color>
+    <color name="radioGroupText">#BCBBC7</color>
     <color name="radioGroupAccent">#07928E</color>
     <color name="radioGroupPressed">#FBB03B</color>
 
 
     <!--            CHARTS          -->
 
-    <color name="chartLonelyPoint">#07928E</color>
-    <color name="chartFirstLine">#87B841</color>
-    <color name="chartSecondLine">#FBB03B</color>
-    <color name="chartFirstText">#87B841</color>
-    <color name="chartSecondText">#FBB03B</color>
-
+    <color name="chartStrategy">#07928E</color>
+    <color name="chartBasic">#87B841</color>
+    <color name="chartModel">#FBB03B</color>
+    <color name="chartAxis">#525E67</color>
 
     <!--            BUTTONS         -->
 

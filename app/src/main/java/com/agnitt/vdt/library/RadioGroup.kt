@@ -2,20 +2,26 @@ package com.agnitt.vdt.library
 
 import android.content.res.ColorStateList
 import android.util.Log
-import android.view.View
-import android.view.ViewGroup
 import android.widget.RadioButton
-import com.agnitt.vdt.*
+import com.agnitt.vdt.R
 import com.agnitt.vdt.data.pressRadioGroup
-import com.agnitt.vdt.utils.RG
+import com.agnitt.vdt.utils.*
 import com.agnitt.vdt.utils.Utils.Companion.APP
-import com.agnitt.vdt.utils.VG
-import com.agnitt.vdt.utils.getUniqueID
-import com.agnitt.vdt.utils.inflate
 import kotlinx.android.synthetic.main.tmpl_radio_group.view.*
 
 class RadioGroup {
-    fun create(id: Int, parent: VG?, text: String, dataSet: List<Float>, checkedValueIndex: Int) =
+    init {
+        rg = this
+    }
+
+    companion object {
+        lateinit var rg: RadioGroup
+    }
+
+    fun create(
+        position: Int?, id: Int, parent: VG?, text: String,
+        dataSet: List<Float>, checkedValueIndex: Int
+    ) =
         ((parent inflate R.layout.tmpl_radio_group) as RG).apply {
             tw_radio_group.text = text
             this.id = id
@@ -30,7 +36,7 @@ class RadioGroup {
                     com.agnitt.vdt.utils.get(id)
                 )
             }
-        }.apply { parent?.addView(this) }
+        }.apply { parent?.add(this, position) }
 
     private fun rButton(id: Int, value: String, position: Int, isChecked: Boolean = false) =
         RadioButton(APP).apply {
@@ -60,14 +66,14 @@ fun RadioButton.checked() {
     }
 }
 
-inline fun RG.forEach(action: (view: View) -> Unit) {
-    for (index in 0 until childCount) {
-        action(getChildAt(index))
-    }
-}
-
-inline fun RG.forEachIndexed(action: (index: Int, view: View) -> Unit) {
-    for (index in 0 until childCount) {
-        action(index, getChildAt(index))
-    }
-}
+//inline fun RG.forEach(action: (view: View) -> Unit) {
+//    for (index in 0 until childCount) {
+//        action(getChildAt(index))
+//    }
+//}
+//
+//inline fun RG.forEachIndexed(action: (index: Int, view: View) -> Unit) {
+//    for (index in 0 until childCount) {
+//        action(index, getChildAt(index))
+//    }
+//}

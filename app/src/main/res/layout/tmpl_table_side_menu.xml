@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/template_ll_sense"
+    android:id="@+id/tmpl_table_side_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tw_sense_ll_name"
+        android:id="@+id/tv_table_side_menu_name"
         style="@android:style/TextAppearance.DeviceDefault.Widget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_weight="50"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tw_ll_sense"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_table_side_menu_name"/>
 
         <LinearLayout
             android:id="@+id/ll_frame_2"
@@ -46,7 +46,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ll_frame_1"
-            app:layout_constraintTop_toBottomOf="@+id/tw_ll_sense"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_table_side_menu_name"/>
     </LinearLayout>
 
     <LinearLayout

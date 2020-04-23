@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_label_1"
+        android:id="@+id/tv_label_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintHeight_default="percent"
@@ -16,13 +16,13 @@
         app:layout_constraintWidth_percent="0.7" />
 
     <TextView
-        android:id="@+id/tv_label_2"
+        android:id="@+id/tv_label_values"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_label_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_name"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.4" />
 

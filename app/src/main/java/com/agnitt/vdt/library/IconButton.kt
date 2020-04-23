@@ -1,22 +1,27 @@
 package com.agnitt.vdt.library
 
 import android.graphics.drawable.Drawable
-import com.agnitt.vdt.*
-import com.agnitt.vdt.utils.LL
-import com.agnitt.vdt.utils.MB
-import com.agnitt.vdt.utils.VG
-import com.agnitt.vdt.utils.inflateMaterial
+import com.agnitt.vdt.R
+import com.agnitt.vdt.utils.*
 import com.google.android.material.button.MaterialButton
 
 class IconButton {
-    fun create(id: Int, parent: VG?, text: String, tag: Any, icon: Drawable) =
+    init {
+        ib = this
+    }
+
+    companion object {
+        lateinit var ib: IconButton
+    }
+
+    fun create(position: Int?, id: Int, parent: VG?, text: String, tag: Any, icon: Drawable) =
         ((parent inflateMaterial R.layout.tmpl_icon_button) as MB).apply {
             this.id = id
             this.tag = tag
             this.text = text
             iconEnd(icon)
             (this.parent as LL).removeView(this)
-        }.apply { parent?.addView(this) }
+        }.apply { parent?.add(this, position) }
 }
 
 fun MaterialButton.iconEnd(icon: Drawable) {
