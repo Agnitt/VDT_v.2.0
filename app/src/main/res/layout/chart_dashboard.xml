@@ -1,60 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/backAccent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backAccent">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_marginVertical="10dp"
         android:id="@+id/b_strategy"
         style="@android:style/TextAppearance.DeviceDefault.Widget"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
         android:background="@drawable/b_strategy_state"
         android:gravity="center"
         android:text="@string/strategy"
         android:textAllCaps="false"
-        android:textColor="@color/buttonStrategyTextPassive"
+        android:textColor="@color/b_strategy_text_state"
         app:layout_constraintEnd_toStartOf="@+id/b_model"
-        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintHeight_percent="0.06"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.17" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_marginVertical="10dp"
         android:id="@+id/b_model"
         style="@android:style/TextAppearance.DeviceDefault.Widget"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
         android:background="@drawable/b_model_state"
         android:gravity="center"
         android:text="@string/model"
         android:textAllCaps="false"
-        android:textColor="@color/buttonModelTextPassive"
+        android:textColor="@color/b_model_text_state"
         app:layout_constraintEnd_toStartOf="@+id/b_basic_v"
-        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintHeight_percent="0.06"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.17" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_marginVertical="10dp"
         android:id="@+id/b_basic_v"
         style="@android:style/TextAppearance.DeviceDefault.Widget"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginVertical="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/b_basic_state"
         android:gravity="center"
         android:text="@string/basic_v"
         android:textAllCaps="false"
-        android:textColor="@color/buttonBasicVersionTextPassive"
+        android:textColor="@color/b_basic_v_text_state"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintHeight_percent="0.06"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.17" />
 
@@ -113,6 +112,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/cl_small_charts"
         app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,8 +122,8 @@
         android:id="@+id/cl_small_charts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="10dp"
         android:background="@color/backPrimary"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.55"
@@ -133,66 +133,72 @@
             android:id="@+id/fl_small_chart_1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toTopOf="@+id/fl_small_chart_4"
-            app:layout_constraintHeight_percent="0.45"
+            app:layout_constraintHeight_percent="0.47"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.32" />
+            app:layout_constraintWidth_percent="0.327" />
 
         <FrameLayout
             android:id="@+id/fl_small_chart_2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toTopOf="@+id/fl_small_chart_5"
             app:layout_constraintEnd_toStartOf="@+id/fl_small_chart_3"
-            app:layout_constraintHeight_percent="0.45"
+            app:layout_constraintHeight_percent="0.47"
             app:layout_constraintStart_toEndOf="@+id/fl_small_chart_1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.32" />
+            app:layout_constraintWidth_percent="0.327" />
 
         <FrameLayout
             android:id="@+id/fl_small_chart_3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toTopOf="@+id/fl_small_chart_6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.45"
+            app:layout_constraintHeight_percent="0.47"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.32" />
+            app:layout_constraintWidth_percent="0.327" />
 
         <FrameLayout
             android:id="@+id/fl_small_chart_4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.45"
+            app:layout_constraintHeight_percent="0.47"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.32" />
+            app:layout_constraintWidth_percent="0.327" />
 
         <FrameLayout
             android:id="@+id/fl_small_chart_5"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fl_small_chart_6"
-            app:layout_constraintHeight_percent="0.45"
+            app:layout_constraintHeight_percent="0.47"
             app:layout_constraintStart_toEndOf="@+id/fl_small_chart_4"
-            app:layout_constraintWidth_percent="0.32" />
+            app:layout_constraintWidth_percent="0.327" />
 
         <FrameLayout
             android:id="@+id/fl_small_chart_6"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.45"
-            app:layout_constraintWidth_percent="0.32" />
+            app:layout_constraintHeight_percent="0.47"
+            app:layout_constraintWidth_percent="0.327" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

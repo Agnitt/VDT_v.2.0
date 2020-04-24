@@ -15,6 +15,7 @@ class SideItem : PageItem {
         name: String,
         type: String,
         dataList: List<Float>,
+        sectionCount: Int,
         currentValue: Float? = null
     ) {
         this.sideItemId = sideItemId
@@ -22,6 +23,7 @@ class SideItem : PageItem {
         this.name = name
         this.type = type
         this.dataList = dataList
+        this.sectionCount = sectionCount
         this.currentValue = currentValue
     }
 
@@ -30,12 +32,14 @@ class SideItem : PageItem {
         name: String,
         type: String,
         dataList: List<Float>,
+        sectionCount: Int,
         currentValue: Float? = null
     ) {
         this.ownerId = ownerId
         this.name = name
         this.type = type
         this.dataList = dataList
+        this.sectionCount = sectionCount
         this.currentValue = currentValue
     }
 

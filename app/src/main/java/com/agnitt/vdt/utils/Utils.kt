@@ -6,19 +6,22 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import com.agnitt.vdt.R
-import com.agnitt.vdt.utils.Utils.Companion.ACT
+import com.agnitt.vdt.builders.PageBuilder.Companion.ACT
+import com.agnitt.vdt.data.Saver.Companion.preferences
 import com.agnitt.vdt.utils.Utils.Companion.APP
 import com.agnitt.vdt.utils.Utils.Companion.YEAR
 import com.github.mikephil.charting.data.Entry
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.random.Random
 
 class Utils : Application() {
     init {
@@ -27,9 +30,15 @@ class Utils : Application() {
 
     companion object {
         lateinit var APP: Application
-        lateinit var ACT: Activity
-
         val YEAR = Calendar.getInstance().get(Calendar.YEAR)
+    }
+}
+
+fun Any.log() = Log.d("LOG", "${this}\n")
+
+var randomList = { size: Int, start: Int, end: Int ->
+    mutableListOf<Float>().apply {
+        for (i in 0 until size) add(Random.nextInt(start, end).toFloat())
     }
 }
 
@@ -64,14 +73,16 @@ infix fun String.of(src: String) = src.contains(this, true)
 infix fun Float.round(precision: Int) =
     (this * (10F).pow(precision)).roundToInt() / (10F).pow(precision)
 
-fun List<Float>.toEntries() =
-    mapIndexed { i, value -> Entry((i + YEAR).toFloat(), value) }
-
+fun List<Float>.toEntries(index:Int = 0) =
+    mapIndexed { i, value -> Entry((i + YEAR + index).toFloat(), value) }
 fun <T> MutableList<T>.addIfNotNull(item: T?) = if (item != null) add(item) else false
 
+var tyui = 60000
+
 fun getUniqueID(): Int {
-    val id = SystemClock.currentThreadTimeMillis().toInt()
-    return if (id < 20000) id + 20000 else id
+    return  ++tyui
+//    return View.generateViewId () + SystemClock.currentThreadTimeMillis().toInt()
+//    return if (id < 20000) id + 20000 else id
 }
 
 // параметры LP

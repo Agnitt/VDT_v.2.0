@@ -1,15 +1,16 @@
 package com.agnitt.vdt.builders
 
 import com.agnitt.vdt.R
+import com.agnitt.vdt.builders.PageBuilder.Companion.ACT
 import com.agnitt.vdt.models.Chart
 import com.agnitt.vdt.models.Types
 import com.agnitt.vdt.utils.CL
-import com.agnitt.vdt.utils.Utils.Companion.ACT
 import com.agnitt.vdt.utils.VG
 import com.agnitt.vdt.utils.inflate
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.chart_dashboard.view.*
 import kotlinx.android.synthetic.main.tmpl_chart.view.*
 import kotlin.math.absoluteValue
 
@@ -17,12 +18,15 @@ class ChartsBuilder : ChartBuilder {
     init {
         chartsBuilder = this
     }
+
     companion object {
         lateinit var chartsBuilder: ChartsBuilder
     }
 
     lateinit var parent: VG
     lateinit var chartsParent: VG
+    lateinit var smallChartsParent: VG
+
     lateinit var charts: MutableList<Chart>
     lateinit var chartsCL: MutableList<CL>
     lateinit var lineCharts: MutableList<LineChart>
@@ -50,7 +54,13 @@ class ChartsBuilder : ChartBuilder {
         parent.removeAllViews()
         parent.addView(chartsParent)
 
-        setRadioGroupYearsValues()
+        smallChartsParent = chartsParent.cl_small_charts
+
+        lineCharts listen chartsParent.b_basic_v
+        lineCharts listen chartsParent.b_model
+        lineCharts listen chartsParent.b_strategy
+
+        setRGYearsParams()
         charts.forEachIndexed { i, chart -> parse(chart).build(i) }
         return this
     }
@@ -82,16 +92,16 @@ class ChartsBuilder : ChartBuilder {
             id = chartId
             tag = position
             setData(isBig, basicDataList, modelDataList, strategyData)
-            setGesture()
+            setGesture(isBig)
             setVisual()
-            listen(chartsParent)
+            if (!isBig) smallChartsParent listen this
         }
         lineCharts.add(lineChart)
 
         chartCL.tv_label_name.setLabel(name, measure, true, isBig)
         chartCL.tv_label_values.setLabel(
-            basicDataList.sum().toString(),
-            (basicDataList[1] - strategyData).absoluteValue.toString(),
+            basicDataList[0].toString(),
+            (basicDataList[0] - modelDataList[0]).absoluteValue.toString(),
             false, isBig
         )
     }
@@ -105,13 +115,14 @@ class ChartsBuilder : ChartBuilder {
         build(position!!)
     }
 
-    fun changeLabelValues(year: Int) = chartsCL.forEach {
-        it.tv_label_values.setLabel(
-            basicDataList.sum().toString(),
-            (basicDataList[1] - strategyData).absoluteValue.toString(),
-            false, isBig
-        )
-    }
+//
+//        chartsCL.forEach {
+//        it.tv_label_values.setLabel(
+//            basicDataList.sum().toString(),
+//            (basicDataList[year - YEAR] - modelDataList[year - YEAR] ).absoluteValue.toString(),
+//            false, isBig
+//        )
+//    }
 
 }
 

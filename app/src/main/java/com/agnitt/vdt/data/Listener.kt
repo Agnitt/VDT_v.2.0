@@ -1,14 +1,12 @@
 package com.agnitt.vdt.data
 
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import com.agnitt.vdt.builders.ChartsBuilder.Companion.chartsBuilder
-import com.agnitt.vdt.builders.TableBuilder.Companion.tableBuilder
-import com.agnitt.vdt.library.checked
+import com.agnitt.vdt.data.Parser.Companion.parser
+import com.agnitt.vdt.data.Saver.Companion.editor
+import com.agnitt.vdt.data.Saver.Companion.permanentSavingOn
 import com.agnitt.vdt.utils.BSB
-import com.agnitt.vdt.utils.Utils.Companion.ACT
+import com.agnitt.vdt.utils.RG
+import com.agnitt.vdt.utils.Sw
 import com.xw.repo.BubbleSeekBar
-import kotlinx.android.synthetic.main.chart_dashboard.*
 
 class Listener : BubbleSeekBar.OnProgressChangedListener {
     init {
@@ -19,44 +17,29 @@ class Listener : BubbleSeekBar.OnProgressChangedListener {
         lateinit var listener: Listener
     }
 
-    override fun onProgressChanged(
-        slider: BSB?, progress: Int, progressFloat: Float, fromUser: Boolean
-    ) = touchSeekBar(slider!!, progressFloat)
+    override fun onProgressChanged(slider: BSB?, pI: Int, pF: Float, fromUser: Boolean) =
+        touchSeekBar(slider!!, pF)
 
+    override fun getProgressOnActionUp(slider: BSB?, pI: Int, pF: Float) =
+        touchSeekBar(slider!!, pF)
 
-    override fun getProgressOnActionUp(
-        slider: BSB?, progress: Int, progressFloat: Float
-    ) = touchSeekBar(slider!!, progressFloat)
-
-
-    override fun getProgressOnFinally(
-        slider: BSB?, progress: Int, progressFloat: Float, fromUser: Boolean
-    ) = touchSeekBar(slider!!, progressFloat)
+    override fun getProgressOnFinally(slider: BSB?, pI: Int, pF: Float, fromUser: Boolean) =
+        touchSeekBar(slider!!, pF)
 }
 
-fun touchSeekBar(slider: BSB, progressFloat: Float) {}
+fun touchSeekBar(slider: BSB, progressFloat: Float) {
+    slider.permanentSavingState()
+    parser.getReaction(slider.id, progressFloat)
+}
 
-fun pressRadioGroup(group: RadioGroup?, radio: RadioButton): Any? = when (group) {
-    ACT.rg_years -> chartsBuilder.changeLabelValues(radio.text.toString().toInt())
-    null -> null
-    else -> {
-        radio.checked()
-        val valuesRadioGroup = arrayListOf(2, 2, 3, 3)
-        val values = arrayOf(
-            arrayOf(Pair(12.0f, 0), Pair(14.0f, 1), Pair(16.0f, 2), Pair(18.0f, 3)),
-            arrayOf(Pair(4.9f, 0), Pair(5.1f, 1), Pair(5.2f, 2)),
-            arrayOf(Pair(31.1f, 0), Pair(32.1f, 1), Pair(33.1f, 2), Pair(34.1f, 3)),
-            arrayOf(Pair(1.0f, 0), Pair(1.1f, 1), Pair(1.2f, 2), Pair(1.3f, 3), Pair(1.4f, 4))
-        )
-        for (i in values.indices)
-            for (j in values[i].indices)
-                if (radio.text.toString().toFloat() == values[i][j].first) {
-                    valuesRadioGroup[i] = values[i][j].second
-                }
+fun BSB.permanentSavingState() {
+    if (permanentSavingOn) editor.save(id.toString(), this.progressFloat)
+}
 
-        val column = valuesRadioGroup[1] * 4 + valuesRadioGroup[0] + 3
-        val row = valuesRadioGroup[2] * 5 + valuesRadioGroup[3] + 2
-        radio.isChecked = true
-        tableBuilder.onPressCell(row, column)
-    }
+fun Sw.permanentSavingState() {
+    if (permanentSavingOn) editor.save(id.toString(), this.isChecked)
+}
+
+fun RG.permanentSavingState() {
+    if (permanentSavingOn) editor.save(id.toString(), this.checkedRadioButtonId)
 }

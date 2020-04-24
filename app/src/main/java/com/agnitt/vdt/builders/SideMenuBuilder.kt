@@ -1,7 +1,10 @@
 package com.agnitt.vdt.builders
 
 import android.view.View
+import android.widget.RadioGroup
 import com.agnitt.vdt.R
+import com.agnitt.vdt.builders.PageBuilder.Companion.ACT
+import com.agnitt.vdt.builders.TableBuilder.Companion.tableBuilder
 import com.agnitt.vdt.library.DiscreteSlider.Companion.ds
 import com.agnitt.vdt.library.PopupMenu.Companion.pm
 import com.agnitt.vdt.library.RadioGroup.Companion.rg
@@ -11,7 +14,6 @@ import com.agnitt.vdt.library.TextView.Companion.tv
 import com.agnitt.vdt.models.SideItem
 import com.agnitt.vdt.models.Types
 import com.agnitt.vdt.utils.*
-import com.agnitt.vdt.utils.Utils.Companion.ACT
 import kotlinx.android.synthetic.main.side_menu.*
 import kotlinx.android.synthetic.main.tmpl_table_side_menu.view.*
 
@@ -26,6 +28,7 @@ class SideMenuBuilder {
 
     lateinit var parent: VG
     var items: List<SideItem>? = null
+    var itemsOfTable: MutableList<RadioGroup> = mutableListOf()
 
     var sideItemId: Int = 0
     lateinit var name: String
@@ -39,49 +42,57 @@ class SideMenuBuilder {
         return this
     }
 
-    fun buildSideMenu(items: List<SideItem>? = null): SideMenuBuilder {
-        if (items != null) {
-            this.items = items
+    fun buildSideMenu(items: List<SideItem>, type: String = Types.CHART.name): SideMenuBuilder {
+        parent.removeAllViews()
+        this.items = items
+        if (type == Types.CHART.name) {
             var i = -1
             while (++i < items.size)
                 if (items[i].type != Types.POPUP.name) parse(items[i]).build(i)
                 else i = parse(items[i]).buildPopupMenu(i)
-        } else buildTableSideMenu()
+        } else buildTableSideMenu(items)
         return this
     }
 
-    private fun buildTableSideMenu() {
-        val sideMenu = (parent inflate R.layout.tmpl_table_side_menu).apply {
-            tv_table_side_menu_name.apply {
+    private fun buildTableSideMenu(items: List<SideItem>) {
+        val sideMenu = ((parent inflate R.layout.tmpl_table_side_menu) as LL).apply {
+            this.tv_table_side_menu_name.apply {
                 text = get(R.string.text_sens_nameMenu)
                 textSize *= 1.115f
-                setTextColor(get<Int>(R.color.radioGroupText))
             }
-
             rg.run {
-                create(
-                    null, getUniqueID(), ll_frame_1, get(R.string.text_sens_radioGroup1),
-                    listOf(12.0f, 14.0f, 16.0f, 18.0f), 2
-                )
-                create(
-                    null, getUniqueID(), ll_frame_2, get(R.string.text_sens_radioGroup2),
-                    listOf(4.9f, 5.1f, 5.2f), 2
-                )
+                tableBuilder listen create(
+                    null, items[1].sideItemId.toInt(), ll_frame_1,
+                    get(R.string.text_sens_radioGroup1), listOf(12.0f, 14.0f, 16.0f, 18.0f),
+                    2
+                ).apply { itemsOfTable.add(this) }
 
-                create(
-                    null, getUniqueID(), ll_frame_3, get(R.string.text_sens_radioGroup3),
-                    listOf(31.1f, 32.1f, 33.1f, 34.1f), 3
-                )
+                tableBuilder listen create(
+                    null, items[2].sideItemId.toInt(), ll_frame_2,
+                    get(R.string.text_sens_radioGroup2), listOf(4.9f, 5.1f, 5.2f),
+                    2
+                ).apply { itemsOfTable.add(this) }
 
-                create(
-                    null, getUniqueID(), ll_frame_4, get(R.string.text_sens_radioGroup4),
-                    listOf(1.0f, 1.1f, 1.2f, 1.3f, 1.4f), 3
-                )
+                tableBuilder listen create(
+                    null, items[3].sideItemId.toInt(), ll_frame_3,
+                    get(R.string.text_sens_radioGroup3), listOf(31.1f, 32.1f, 33.1f, 34.1f),
+                    3
+                ).apply { itemsOfTable.add(this) }
+
+                tableBuilder listen create(
+                    null, items[4].sideItemId.toInt(), ll_frame_4,
+                    get(R.string.text_sens_radioGroup4), listOf(1.0f, 1.1f, 1.2f, 1.3f, 1.4f),
+                    3
+                ).apply { itemsOfTable.add(this) }
             }
+
         }
-        parent.removeAllViews()
         parent.addView(sideMenu)
+        tableBuilder.findAndPressCell()
+        tableBuilder.findAndPressRB()
     }
+
+    fun getTableSideMenuItem(position: Int): RG? = itemsOfTable[position]
 
     fun getSideItem(position: Int): SideItem? = items?.get(position)
 
@@ -116,14 +127,22 @@ class SideMenuBuilder {
 
     private fun buildPopupMenu(position: Int): Int {
         val pmList = mutableListOf<View>()
-        for (i in position + 1 until items!!.size)
-            if (items!![i].type.contains(Types.POPUP.name) && items!![i].type != Types.POPUP.name)
-                pmList.addIfNotNull(build(i, type.substring(Types.POPUP.name.length), null))
+        val sideItemId = sideItemId
+        val name = name
+        val parent = parent
+        for (i in position + 1 until items!!.size) {
+            val item = items!![i]
+            val type = item.type
+            val pType = Types.POPUP.name
+            if (type.contains(pType) && type != pType)
+                pmList.addIfNotNull(parse(item).build(i, type.substring(pType.length + 1), null))
             else {
                 pm.create(position, sideItemId, name, parent, pmList)
                 return i - 1
             }
+        }
         pm.create(position, sideItemId, name, parent, pmList)
         return items!!.size
     }
+
 }

@@ -1,6 +1,11 @@
 package com.agnitt.vdt.library
 
 import com.agnitt.vdt.R
+import com.agnitt.vdt.data.Parser.Companion.parser
+import com.agnitt.vdt.data.Saver.Companion.isSave
+import com.agnitt.vdt.data.Saver.Companion.preferences
+import com.agnitt.vdt.data.get
+import com.agnitt.vdt.data.permanentSavingState
 import com.agnitt.vdt.utils.Sw
 import com.agnitt.vdt.utils.VG
 import com.agnitt.vdt.utils.add
@@ -20,6 +25,13 @@ class Switch {
             this.id = id
             setText(text)
             tag = text
-            isChecked = state
+            if (preferences.contains(id.toString())) {
+                isChecked = preferences.get<Boolean>(id.toString())!!
+                isSave = true
+            } else isChecked = state
+            setOnClickListener {
+                (it as Sw).permanentSavingState()
+                parser.getReaction(it.id, if (isChecked) 1f else 0f)
+            }
         }.apply { parent?.add(this, position) }
 }

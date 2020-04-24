@@ -23,22 +23,22 @@
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/cl_content_main"
-        app:layout_constraintEnd_toStartOf="@+id/side_menu"
-        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintHeight_percent="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.75" />
+        app:layout_constraintWidth_percent="0.78" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_content_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/backAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/side_menu"
-        app:layout_constraintHeight_percent="0.9"
+        app:layout_constraintHeight_percent="0.92"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.75" />
+        app:layout_constraintWidth_percent="0.78" />
 
     <include layout="@layout/side_menu"
+        android:id="@+id/cl_side_menu"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingHorizontal="10dp"

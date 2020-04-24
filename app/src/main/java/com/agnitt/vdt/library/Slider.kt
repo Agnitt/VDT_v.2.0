@@ -2,6 +2,9 @@ package com.agnitt.vdt.library
 
 import com.agnitt.vdt.R
 import com.agnitt.vdt.data.Listener.Companion.listener
+import com.agnitt.vdt.data.Saver.Companion.isSave
+import com.agnitt.vdt.data.Saver.Companion.preferences
+import com.agnitt.vdt.data.get
 import com.agnitt.vdt.utils.LL
 import com.agnitt.vdt.utils.VG
 import com.agnitt.vdt.utils.add
@@ -23,12 +26,17 @@ class DiscreteSlider {
         dataList: List<Float>, progress: Float, sectionCount: Int = 4
     ) = ((parent inflate R.layout.tmpl_discrete_slider) as LL).apply {
         tw_slider_discrete.text = text
+        val progressSave: Float
+        if (preferences.contains(id.toString())) {
+            progressSave = preferences.get<Float>(id.toString())!!
+            isSave = true
+        } else progressSave = progress
         slider_discrete.apply {
             this.id = id
             configBuilder.apply {
                 min(dataList[0])
                 max(dataList[1])
-                progress(progress)
+                progress(progressSave)
                 sectionCount(sectionCount)
                 if (dataList[0].toInt().toFloat() != min) {
                     showProgressInFloat()
@@ -54,28 +62,32 @@ class SwitchSlider {
     fun create(
         position: Int?, id: Int, parent: VG?, text: String,
         dataList: List<Float>, progress: Float
-    ) =
-        ((parent inflate R.layout.tmpl_switch_slider) as LL).apply {
-            tw_slider_switch.text = text
-            slider_switch.apply {
-                this.id = id
-                configBuilder.apply {
-//                    min(min * 10)
-//                    max(max * 10)
-                    min(dataList[0])
-                    max(dataList[1])
-                    sectionCount(1)
-                    progress(if (progress > min) this.max else this.min)
-                    thumbRadius((thumbRadius / 1.3).toInt())
-                    build()
-                }
-                onProgressChangedListener = listener
+    ) = ((parent inflate R.layout.tmpl_switch_slider) as LL).apply {
+        tw_slider_switch.text = text
+        val progressSave: Float
+        if (preferences.contains(id.toString())) {
+            progressSave = preferences.get<Float>(id.toString())!!
+            isSave = true
+        } else progressSave = progress
+        slider_switch.apply {
+            this.id = id
+            configBuilder.apply {
+                min(min)
+                max(max)
+                min(dataList[0])
+                max(dataList[1])
+                sectionCount(1)
+                progress(if (progressSave > min) this.max else this.min)
+                thumbRadius((thumbRadius / 1.3).toInt())
+                build()
             }
-            tw_slider_switch_values.apply {
-                tw_slider_switch_min.text = dataList[0].toString()
-                tw_slider_switch_max.text = dataList[1].toString()
-            }
-        }.apply { parent?.add(this, position) }
+            onProgressChangedListener = listener
+        }
+        tw_slider_switch_values.apply {
+            tw_slider_switch_min.text = (dataList[0] / 10).toString()
+            tw_slider_switch_max.text = (dataList[1] / 10).toString()
+        }
+    }.apply { parent?.add(this, position) }
 
 
 }

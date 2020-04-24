@@ -19,11 +19,12 @@ class PopupMenu {
             tag = text
             val idBody = getUniqueID()
             this.id = idParent
+            background = get(R.color.popupMenuButtonBack)
             val iconButton = IconButton().create(
                 0,
                 idParent, this, text, idBody,
-                get(R.drawable.arrow_down)
-            )
+                get(R.drawable.arrow_up)
+            ).apply{ this.popupOpen()}
 
             addView(((this inflate R.layout.content_popup) as LL).apply {
                 id = idBody
@@ -38,12 +39,13 @@ class PopupMenu {
                     }
                     this.addView(
                         tv.create(
-                            null, getUniqueID() + 50000, null, "G",
+                            null, getUniqueID(), null, "G",
                             R.color.popupMenuButtonBack
                         )
                     )
+                    x.toString().log()
                 }
-                this.hide()
+                this.open()
             })
 
             iconButton.setOnClickListener { v ->

@@ -1,5 +1,6 @@
 package com.agnitt.vdt.utils
 
+import android.content.SharedPreferences
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -23,4 +24,5 @@ typealias VG_LP = ViewGroup.LayoutParams
 typealias CL_LP = ConstraintLayout.LayoutParams
 typealias LL_LP = LinearLayout.LayoutParams
 typealias RL_LP = RelativeLayout.LayoutParams
-typealias Formula = (Int, Float) -> Float
+typealias SP = SharedPreferences
+typealias SP_E = SharedPreferences.Editor
