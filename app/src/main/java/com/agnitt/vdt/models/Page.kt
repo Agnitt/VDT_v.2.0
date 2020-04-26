@@ -3,14 +3,14 @@ package com.agnitt.vdt.models
 class Page {
     var id: Long = 0
     var name: String
-    var type: String
+    var type: Types
     var mainItems: List<MainItem>
     var sideItems: List<SideItem>
 
     constructor(
         id: Long,
         name: String,
-        type: String,
+        type: Types,
         mainItems: List<MainItem> = listOf(),
         sideItems: List<SideItem> = listOf()
     ) {
@@ -23,7 +23,7 @@ class Page {
 
     constructor(
         name: String,
-        type: String,
+        type: Types,
         mainItems: List<MainItem> = listOf(),
         sideItems: List<SideItem> = listOf()
     ) {
@@ -34,7 +34,7 @@ class Page {
     }
 
     override fun toString(): String =
-        "\n[PAGE_MOD]\nid = $id\nname = $name\ntype = $type\nmainItems = $mainItems\nsideItems = $sideItems"
+        "\n[PAGE_MOD]\nid = $id\nname = $name\ntype = ${type.name}\nmainItems = $mainItems\nsideItems = $sideItems"
 }
 
 /**

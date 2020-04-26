@@ -2,6 +2,7 @@ package com.agnitt.vdt.library
 
 import com.agnitt.vdt.R
 import com.agnitt.vdt.data.Listener.Companion.listener
+import com.agnitt.vdt.data.Parser.Companion.parser
 import com.agnitt.vdt.data.Saver.Companion.isSave
 import com.agnitt.vdt.data.Saver.Companion.preferences
 import com.agnitt.vdt.data.get
@@ -29,6 +30,7 @@ class DiscreteSlider {
         val progressSave: Float
         if (preferences.contains(id.toString())) {
             progressSave = preferences.get<Float>(id.toString())!!
+            parser.getReaction(id, progressSave)
             isSave = true
         } else progressSave = progress
         slider_discrete.apply {
@@ -67,13 +69,12 @@ class SwitchSlider {
         val progressSave: Float
         if (preferences.contains(id.toString())) {
             progressSave = preferences.get<Float>(id.toString())!!
+            parser.getReaction(id, progressSave)
             isSave = true
         } else progressSave = progress
         slider_switch.apply {
             this.id = id
             configBuilder.apply {
-                min(min)
-                max(max)
                 min(dataList[0])
                 max(dataList[1])
                 sectionCount(1)
@@ -88,6 +89,5 @@ class SwitchSlider {
             tw_slider_switch_max.text = (dataList[1] / 10).toString()
         }
     }.apply { parent?.add(this, position) }
-
 
 }

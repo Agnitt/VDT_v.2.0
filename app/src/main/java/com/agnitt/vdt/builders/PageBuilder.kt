@@ -8,6 +8,7 @@ import com.agnitt.vdt.builders.ChartsBuilder.Companion.chartsBuilder
 import com.agnitt.vdt.builders.SideMenuBuilder.Companion.sideMenuBuilder
 import com.agnitt.vdt.builders.TableBuilder.Companion.tableBuilder
 import com.agnitt.vdt.data.Listener
+import com.agnitt.vdt.data.Saver
 import com.agnitt.vdt.data.Saver.Companion.isSave
 import com.agnitt.vdt.data.removeState
 import com.agnitt.vdt.data.saveState
@@ -26,6 +27,7 @@ class PageBuilder(activity: Activity) {
         ACT = activity
 
         Listener()
+        Saver()
 
         ChartsBuilder().init()
         TableBuilder().init()
@@ -52,7 +54,7 @@ class PageBuilder(activity: Activity) {
     fun init() {
         pages.forEachIndexed { i, obj ->
             ACT.ll_pages.addView(((ACT.ll_pages inflate R.layout.tmpl_pages) as TV).apply {
-                id = getUniqueID()
+                id = uniqueID()
                 text = obj.name
                 isPressed = i == 0
                 if (i == 0) this.layoutParams = LL_LP(0, LL_LP.MATCH_PARENT, 1f).margins(0, 0, 3, 0)
@@ -83,11 +85,11 @@ class PageBuilder(activity: Activity) {
         }
         if (page != null) page!!.apply {
             when (type) {
-                Types.CHART.name -> {
+                Types.CHART -> {
                     chartsBuilder.buildDashboard(mainItems.map { it as Chart })
                     sideMenuBuilder.buildSideMenu(sideItems)
                 }
-                Types.TABLE.name -> {
+                Types.TABLE -> {
                     tableBuilder.buildDashboard(mainItems.map { it as Table })
                     sideMenuBuilder.buildSideMenu(sideItems, type)
                 }

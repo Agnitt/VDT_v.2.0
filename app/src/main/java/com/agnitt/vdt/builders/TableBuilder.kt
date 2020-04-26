@@ -13,8 +13,7 @@ import androidx.core.view.forEachIndexed
 import com.agnitt.vdt.R
 import com.agnitt.vdt.builders.PageBuilder.Companion.ACT
 import com.agnitt.vdt.data.permanentSavingState
-import com.agnitt.vdt.library.RadioGroup
-import com.agnitt.vdt.library.RadioGroup.Companion.rg
+import com.agnitt.vdt.library.RadioGroup.Companion.checkedIndexesRG
 import com.agnitt.vdt.models.Table
 import com.agnitt.vdt.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,6 +37,9 @@ class TableBuilder {
 
     private val rows = 22
     private val columns = 15
+
+    val column = { checkedIndexesRG[1] * 4 + checkedIndexesRG[0] + 3 }
+    val row = { checkedIndexesRG[3] * 5 + checkedIndexesRG[2] + 2 }
 
     private var valNames = arrayListOf("", "", " NIM ", " CIR ", " COR ", "↕ЧКД")
     private var valNimChkd = arrayListOf(
@@ -140,14 +142,13 @@ class TableBuilder {
         return true
     }
 
-    // pressure response
     fun onPressCell(row: Int, column: Int) = if (row > 1 && column > 2) {
         restoreCells()
         for (r in 2..row) setNeighborhoodPressedCell(row, column, r, column)
         for (c in 3 until column) setNeighborhoodPressedCell(row, column, row, c)
     } else null
 
-    private fun selectTablesRadioButton(r: Int, c: Int) {
+    fun selectTablesRadioButton(r: Int, c: Int) {
         val getRG = { ll: LinearLayout -> ll.getChildAt(0) as RG }
         val setChecked = { v: View, i: Int, x: Int -> if (v is RadioButton) v.isChecked = i == x }
 
@@ -158,8 +159,8 @@ class TableBuilder {
 
         getRG(ACT.ll_frame_1).forEachIndexed { i, view -> setChecked(view, i, x2 + 1) }
         getRG(ACT.ll_frame_2).forEachIndexed { i, view -> setChecked(view, i, x1 + 1) }
-        getRG(ACT.ll_frame_3).forEachIndexed { i, view -> setChecked(view, i, y1 + 1) }
-        getRG(ACT.ll_frame_4).forEachIndexed { i, view -> setChecked(view, i, y2 + 1) }
+        getRG(ACT.ll_frame_3).forEachIndexed { i, view -> setChecked(view, i, y2 + 1) }
+        getRG(ACT.ll_frame_4).forEachIndexed { i, view -> setChecked(view, i, y1 + 1) }
     }
 
     private fun restoreCells() {
@@ -203,12 +204,10 @@ class TableBuilder {
         }
     }
 
-    // getters
     private fun getView(row: Int, column: Int) = getRow(row).getChildAt(column) as TextView
 
-    private fun getRow(row: Int) = tableLayout.getChildAt(row) as TableRow
+    private fun getRow(row: Int): TableRow = tableLayout.getChildAt(row) as TableRow
 
-    // style cell's text
     private fun setStyleCell(
         text: String,
         isBig: Boolean,
@@ -259,37 +258,18 @@ class TableBuilder {
     infix fun listen(rg: RG) = rg.apply {
         setOnCheckedChangeListener { group, id ->
             group.permanentSavingState()
-            val radio = get<View>(id).apply {
-                if (this !is RB) {
-                    this.id.log()
-                    (this as TV).text.log()
-                    throw Exception()
-                }
-            } as RB
+            val radio = get<View>(id) as RB
             val values = arrayOf(
                 arrayOf(Pair(12.0f, 0), Pair(14.0f, 1), Pair(16.0f, 2), Pair(18.0f, 3)),
                 arrayOf(Pair(4.9f, 0), Pair(5.1f, 1), Pair(5.2f, 2)),
-                arrayOf(Pair(31.1f, 0), Pair(32.1f, 1), Pair(33.1f, 2), Pair(34.1f, 3)),
-                arrayOf(Pair(1.0f, 0), Pair(1.1f, 1), Pair(1.2f, 2), Pair(1.3f, 3), Pair(1.4f, 4))
+                arrayOf(Pair(1.0f, 0), Pair(1.1f, 1), Pair(1.2f, 2), Pair(1.3f, 3), Pair(1.4f, 4)),
+                arrayOf(Pair(31.1f, 0), Pair(32.1f, 1), Pair(33.1f, 2), Pair(34.1f, 3))
             )
             for (i in values.indices) for (j in values[i].indices)
                 if (radio.text.toString().toFloat() == values[i][j].first)
-                    RadioGroup.rg.checkedIndexesRG[i] = values[i][j].second
-
+                    checkedIndexesRG[i] = values[i][j].second
             radio.isChecked = true
-            findAndPressCell()
+            onPressCell(row(), column())
         }
-    }
-
-    fun findAndPressCell() {
-        val column = rg.checkedIndexesRG[1] * 4 + RadioGroup.rg.checkedIndexesRG[0] + 3
-        val row = RadioGroup.rg.checkedIndexesRG[2] * 5 + RadioGroup.rg.checkedIndexesRG[3] + 2
-        onPressCell(row, column)
-    }
-
-    fun findAndPressRB() {
-        val column = rg.checkedIndexesRG[1] * 4 + RadioGroup.rg.checkedIndexesRG[0] + 3
-        val row = RadioGroup.rg.checkedIndexesRG[2] * 5 + RadioGroup.rg.checkedIndexesRG[3] + 2
-        selectTablesRadioButton(row, column)
     }
 }

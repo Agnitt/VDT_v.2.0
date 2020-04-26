@@ -17,7 +17,7 @@ class PopupMenu {
     fun create(position: Int?, idParent: Int, text: String, parent: VG?, content: List<View?>) =
         ((parent inflate R.layout.tmpl_popup) as LL).apply {
             tag = text
-            val idBody = getUniqueID()
+            val idBody = uniqueID()
             this.id = idParent
             background = get(R.color.popupMenuButtonBack)
             val iconButton = IconButton().create(
@@ -39,11 +39,10 @@ class PopupMenu {
                     }
                     this.addView(
                         tv.create(
-                            null, getUniqueID(), null, "G",
+                            null, uniqueID(), null, "G",
                             R.color.popupMenuButtonBack
                         )
                     )
-                    x.toString().log()
                 }
                 this.open()
             })

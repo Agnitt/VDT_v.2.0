@@ -64,7 +64,6 @@ fun hideSideMenu(item: MenuItem) {
 
     mainLP.width = if (bool(mainLP, 0.78f)) CL_LP.MATCH_PARENT else 0
     mainLP.matchConstraintPercentWidth = if (bool(mainLP, 0.78f)) 1f else 0.78f
-
     sideLP.matchConstraintPercentWidth = if (bool(sideLP, 0.2f)) 0f else 0.2f
 
     ACT.ll_pages.layoutParams = pagesLP

@@ -10,6 +10,7 @@ import com.agnitt.vdt.builders.saveParameters
 import com.agnitt.vdt.data.Saver.Companion.editor
 import com.agnitt.vdt.data.Saver.Companion.isSave
 import com.agnitt.vdt.library.RadioGroup.Companion.rg
+import com.agnitt.vdt.library.getPositionOfCheckedButton
 import com.agnitt.vdt.models.Types
 import com.agnitt.vdt.utils.*
 
@@ -67,32 +68,34 @@ fun SP_E.deleteAll() = this.apply {
     apply()
 }
 
-fun saveState() = pageBuilder.getPageByName(openPage)?.sideItems?.forEachIndexed { i, item ->
-    when {
-        item.type.contains("SLIDER") -> get<BSB>(item.sideItemId.toInt()).apply {
-            editor.save(this.id.toString(), this.progressFloat)
+fun saveState() {
+    pageBuilder.getPageByName(openPage)?.sideItems?.forEach { item ->
+        when {
+            item.type.name.contains("SLIDER") -> get<BSB>(item.sideItemId.toInt()).apply {
+                editor.save(this.id.toString(), this.progressFloat)
+            }
+            item.type.name.contains("SWITCH") -> get<Sw>(item.sideItemId.toInt()).apply {
+                editor.save(this.id.toString(), this.isChecked)
+            }
+            item.type.name.contains("RADIO") -> get<RG>(item.sideItemId.toInt()).apply {
+                editor.save(this.id.toString(), this.getPositionOfCheckedButton())
+            }
         }
-        item.type.contains("SWITCH") -> get<Sw>(item.sideItemId.toInt()).apply {
-            editor.save(this.id.toString(), this.isChecked)
-        }
-        item.type.contains("RADIO") -> sideMenuBuilder.getTableSideMenuItem(i - 1)?.apply {
-            editor.save(this.id.toString(), this.checkedRadioButtonId)
-        }
+        isSave = true
     }
-    isSave = true
 }
 
 fun removeState() {
     val items = sideMenuBuilder.items ?: return
     val type = pageBuilder.getPageByName(openPage)?.type ?: return
     if (isSave) items.forEach { editor.delete(it.sideItemId.toString()) }
-    if (type == Types.TABLE.name) rg.resetcheckedIndexesRG()
+    if (type == Types.TABLE) rg.resetCheckedIndexesRG()
     sideMenuBuilder.buildSideMenu(items, type)
     isSave = false
 }
 
 fun removePermanentSavingState() {
-    rg.resetcheckedIndexesRG()
-    removeState()
+    rg.resetCheckedIndexesRG()
+    isSave = false
     editor.deleteAll()
 }

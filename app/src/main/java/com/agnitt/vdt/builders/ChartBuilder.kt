@@ -23,6 +23,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.chart_dashboard.*
 import kotlinx.android.synthetic.main.chart_dashboard.view.*
 import kotlinx.android.synthetic.main.tmpl_chart.view.*
@@ -51,6 +52,7 @@ interface ChartBuilder {
         showModelValues: Boolean = false,
         showStrategyValue: Boolean = false
     ): LineChart {
+        notifyDataSetChanged()
         val dataBasicChart = LineDataSet(basicDataList.toEntries(), "")
         val dataModelChart = LineDataSet(modelDataList.toEntries(), "")
         val dataNextYearStrategy = LineDataSet(listOf(strategyValue).toEntries(1), "")
@@ -127,7 +129,6 @@ interface ChartBuilder {
         else false
     }
 
-
     fun VG.getFrame(position: Int): FrameLayout? = when (position) {
         0 -> this.fl_main_chart
         1 -> this.fl_small_chart_1
@@ -140,7 +141,6 @@ interface ChartBuilder {
     }
 
     fun LineChart.open(parent: VG): Boolean {
-        "open".log()
         val chartCL = this.parent as CL
         (chartCL.parent as FL).removeView(chartCL)
         parent.forEach { v -> v.visibility = VG.INVISIBLE }
@@ -151,7 +151,6 @@ interface ChartBuilder {
     }
 
     fun LineChart.hide(): Boolean {
-        "hide".log()
         val position = this.tag.toString().toInt()
         val chartCL = this.parent as CL
         val frame = (chartCL.parent as CL).getFrame(position) ?: return false
@@ -191,37 +190,37 @@ interface ChartBuilder {
             setSpan(RelativeSizeSpan(proportion2), text1.length, length, flag)
         }
 
-    fun changeLabelValues(year: Int) = chartsBuilder.lineCharts.forEach { chart ->
-        val basic = chart.data.dataSets[0].getEntryForIndex(year - YEAR).y
-        val model = chart.data.dataSets[1].getEntryForIndex(year - YEAR).y
-        (chart.parent as CL).tv_label_values.setLabel(
-            basic.toString(), (basic - model).absoluteValue.toString(),
-            false, (chart.parent.parent as VG).id == ACT.fl_main_chart.id
+    fun changeLabelValues(year: Int?) = if (year != null) chartsBuilder.lineCharts.forEach {
+        val basic = it.data.dataSets[0].getEntryForIndex(year - YEAR).y
+        val model = it.data.dataSets[1].getEntryForIndex(year - YEAR).y
+        (it.parent as CL).tv_label_values.setLabel(
+            String.format("%.1f", basic), String.format("%.2f", (basic - model).absoluteValue),
+            false, (it.parent.parent as VG).id == ACT.fl_main_chart.id
         )
-    }
+    } else null
 
     @SuppressLint("ClickableViewAccessibility")
     infix fun MutableList<LineChart>.listen(acButton: AppCompatButton) =
         acButton.setOnTouchListener { button, event ->
             if (event.action != MotionEvent.ACTION_DOWN) return@setOnTouchListener false
             button.isPressed = !button.isPressed
-            this.forEach { it.showValues(acButton) }
+            this.forEach { it.showValues() }
             return@setOnTouchListener true
         }
 
-    fun LineChart.showValues(button: AppCompatButton) = this.apply {
+    fun LineChart.showValues() = this.apply {
         notifyDataSetChanged()
         data = data.apply {
             dataSets.let {
-                when (button) {
-                    get<AppCompatButton>(R.id.b_basic_v) -> it[0].setDrawValues(!it[0].isDrawValuesEnabled)
-                    get<AppCompatButton>(R.id.b_model) -> it[1].setDrawValues(!it[1].isDrawValuesEnabled)
-                    get<AppCompatButton>(R.id.b_strategy) -> it[2].setDrawValues(!it[2].isDrawValuesEnabled)
-                }
+                if (get<AppCompatButton>(R.id.b_basic_v).isPressed) it[0].changeDisplayMode()
+                if (get<AppCompatButton>(R.id.b_model).isPressed) it[1].changeDisplayMode()
+                if (get<AppCompatButton>(R.id.b_strategy).isPressed) it[2].changeDisplayMode()
             }
         }
         invalidate()
     }
+
+    fun ILineDataSet.changeDisplayMode() = this.setDrawValues(!this.isDrawValuesEnabled)
 
     fun setRGYearsParams() = ACT.findViewById<RG>(R.id.rg_years).apply {
         forEachIndexed { i, child -> if (child is RadioButton) child.text = (YEAR + i).toString() }

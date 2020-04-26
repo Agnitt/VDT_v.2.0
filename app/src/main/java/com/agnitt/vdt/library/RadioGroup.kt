@@ -2,7 +2,10 @@ package com.agnitt.vdt.library
 
 import android.content.res.ColorStateList
 import android.widget.RadioButton
+import androidx.core.view.forEachIndexed
 import com.agnitt.vdt.R
+import com.agnitt.vdt.builders.PageBuilder.Companion.ACT
+import com.agnitt.vdt.data.Parser.Companion.parser
 import com.agnitt.vdt.data.Saver.Companion.isSave
 import com.agnitt.vdt.data.Saver.Companion.preferences
 import com.agnitt.vdt.data.get
@@ -13,57 +16,63 @@ import kotlinx.android.synthetic.main.tmpl_radio_group.view.*
 class RadioGroup {
     init {
         rg = this
-
     }
 
     companion object {
         lateinit var rg: RadioGroup
+        var checkedIndexesRG = arrayOf(2, 2, 3, 3)
     }
 
-    var checkedIndexesRG = arrayOf(2, 2, 3, 3)
-
-    fun resetcheckedIndexesRG() {
+    fun resetCheckedIndexesRG() {
         checkedIndexesRG = arrayOf(2, 2, 3, 3)
     }
 
     fun create(
         position: Int?, id: Int, parent: VG?, text: String,
-        dataSet: List<Float>, checkedValueIndex: Int
+        dataSet: List<Float>, checkedIndex: Int
     ) = ((parent inflate R.layout.tmpl_radio_group) as RG).apply {
+        val checkedSave: Int
 
-        val checkedIndex: Int
         if (preferences.contains(id.toString())) {
-            checkedIndex = preferences.get<Int>(id.toString())!!
+            checkedSave = preferences.get<Int>(id.toString())!!
+            parser.getReaction(id, dataSet[checkedSave])
             isSave = true
-        } else checkedIndex = checkedValueIndex
+        } else checkedSave = checkedIndex
 
-        tw_radio_group.text = text
         this.id = id
+        tw_radio_group.text = text
+
         dataSet.forEachIndexed { i, value ->
-            this.addView(
-                rButton(
-                    getUniqueID(),
-                    value.toString(),
-                    i,
-                    checkedIndex == i,
-                    checkedValueIndex == i
-                )
-            )
+            this.addView(rButton(id * 10000 + i, value, i, checkedSave == i, checkedIndex == i))
+        }
+        setOnCheckedChangeListener { group, id ->
+            parser.getReaction(group.id, get<RB>(id).text.toString().toFloat())
         }
     }.apply { parent?.add(this, position) }
 
-    private fun rButton(id: Int, value: String, position: Int, isChecked: Boolean, start: Boolean) =
+    private fun rButton(id: Int, value: Float, position: Int, isChecked: Boolean, start: Boolean) =
         RadioButton(APP).apply {
             this.id = id
-            text = value
+            text = value.toString()
             tag = position
             this.isChecked = isChecked
             if (start) {
-                setTextColor(com.agnitt.vdt.utils.get<Int>(R.color.radioGroupAccent))
+                setTextColor(get<Int>(R.color.radioGroupAccent))
                 buttonTintList = (ColorStateList(
                     arrayOf(intArrayOf(android.R.attr.state_enabled)),
-                    intArrayOf(com.agnitt.vdt.utils.get(R.color.radioGroupAccent))
+                    intArrayOf(get(R.color.radioGroupAccent))
                 ))
             }
         }
+}
+
+fun RG.getCheckedValue(): String? {
+    if (this.checkedRadioButtonId == -1) return null
+    return ACT.findViewById<RB>(this.checkedRadioButtonId).text.toString()
+}
+
+fun RG.getPositionOfCheckedButton(): Int {
+    var position = 0
+    forEachIndexed { i, rb -> if (i > 0 && (rb as RB).isChecked) position = i - 1 }
+    return position
 }

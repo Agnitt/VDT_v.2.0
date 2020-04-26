@@ -2,6 +2,7 @@ package com.agnitt.vdt.builders
 
 import com.agnitt.vdt.R
 import com.agnitt.vdt.builders.PageBuilder.Companion.ACT
+import com.agnitt.vdt.library.getCheckedValue
 import com.agnitt.vdt.models.Chart
 import com.agnitt.vdt.models.Types
 import com.agnitt.vdt.utils.CL
@@ -10,6 +11,7 @@ import com.agnitt.vdt.utils.inflate
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.chart_dashboard.*
 import kotlinx.android.synthetic.main.chart_dashboard.view.*
 import kotlinx.android.synthetic.main.tmpl_chart.view.*
 import kotlin.math.absoluteValue
@@ -35,7 +37,6 @@ class ChartsBuilder : ChartBuilder {
     lateinit var name: String
     lateinit var measure: String
     var isBig: Boolean = false
-
     lateinit var basicDataList: List<Float>
     lateinit var modelDataList: List<Float>
     var strategyData: Float = 0f
@@ -65,7 +66,28 @@ class ChartsBuilder : ChartBuilder {
         return this
     }
 
+    fun changeDataChart(newChart: Chart) {
+        val chart = findChartById(newChart.chartId)?.apply {
+            this.name = newChart.name
+            this.measure = newChart.measure
+            this.basicDataList = newChart.basicDataList
+            this.modelDataList = newChart.modelDataList
+            this.strategyData = newChart.strategyData
+        } ?: return
+        parse(chart)
+        ACT.findViewById<LineChart>(chartId).run {
+            setData(isBig, basicDataList, modelDataList, strategyData)
+            showValues()
+        }
+        changeLabelValues(ACT.rg_years.getCheckedValue()?.toInt())
+    }
+
     override fun getChart(position: Int): Chart = charts[position]
+
+    fun findChartById(id: Long) = charts.run {
+        forEach { if (it.chartId == id) return@run it }
+        return@run null
+    }
 
     override fun getLineChart(position: Int): LineChart = lineCharts[position]
 
@@ -73,7 +95,7 @@ class ChartsBuilder : ChartBuilder {
         chartId = chart.chartId.toInt()
         name = chart.name
         measure = chart.measure
-        isBig = chart.type == Types.BIG.name
+        isBig = chart.type == Types.BIG
         basicDataList = chart.basicDataList
         modelDataList = chart.modelDataList
         strategyData = chart.strategyData
@@ -82,7 +104,6 @@ class ChartsBuilder : ChartBuilder {
 
     override fun build(position: Int) {
         val thisParent = chartsParent.getFrame(position) ?: return
-
         val chartCL = (thisParent inflate R.layout.tmpl_chart) as CL
         thisParent.removeAllViews()
         thisParent.addView(chartCL)
@@ -100,8 +121,8 @@ class ChartsBuilder : ChartBuilder {
 
         chartCL.tv_label_name.setLabel(name, measure, true, isBig)
         chartCL.tv_label_values.setLabel(
-            basicDataList[0].toString(),
-            (basicDataList[0] - modelDataList[0]).absoluteValue.toString(),
+            String.format("%.1f", basicDataList[0]),
+            String.format("%.2f", (basicDataList[0] - modelDataList[0]).absoluteValue),
             false, isBig
         )
     }
@@ -114,16 +135,6 @@ class ChartsBuilder : ChartBuilder {
         chartsParent.getFrame(position!!)?.removeAllViews()
         build(position!!)
     }
-
-//
-//        chartsCL.forEach {
-//        it.tv_label_values.setLabel(
-//            basicDataList.sum().toString(),
-//            (basicDataList[year - YEAR] - modelDataList[year - YEAR] ).absoluteValue.toString(),
-//            false, isBig
-//        )
-//    }
-
 }
 
 class LabelFormatter : ValueFormatter() {

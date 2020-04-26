@@ -4,7 +4,7 @@ class SideItem : PageItem {
     var sideItemId: Long = 0
     var ownerId: Long = 0
     var name: String
-    var type: String
+    var type: Types
     var dataList: List<Float>
     var sectionCount: Int = 4
     var currentValue: Float? = null
@@ -13,7 +13,7 @@ class SideItem : PageItem {
         sideItemId: Long,
         ownerId: Long,
         name: String,
-        type: String,
+        type: Types,
         dataList: List<Float>,
         sectionCount: Int,
         currentValue: Float? = null
@@ -22,15 +22,17 @@ class SideItem : PageItem {
         this.ownerId = ownerId
         this.name = name
         this.type = type
-        this.dataList = dataList
+        this.dataList = if (type == Types.SWITCH_SLIDER || type == Types.POPUP_SWITCH_SLIDER)
+            dataList.map { it * 10 } else dataList
         this.sectionCount = sectionCount
-        this.currentValue = currentValue
+        this.currentValue = if (type == Types.SWITCH_SLIDER || type == Types.POPUP_SWITCH_SLIDER)
+            currentValue!! * 10 else currentValue
     }
 
     constructor(
         ownerId: Long,
         name: String,
-        type: String,
+        type: Types,
         dataList: List<Float>,
         sectionCount: Int,
         currentValue: Float? = null
@@ -38,13 +40,15 @@ class SideItem : PageItem {
         this.ownerId = ownerId
         this.name = name
         this.type = type
-        this.dataList = dataList
+        this.dataList = if (type == Types.SWITCH_SLIDER || type == Types.POPUP_SWITCH_SLIDER)
+            dataList.map { it * 10 } else dataList
         this.sectionCount = sectionCount
-        this.currentValue = currentValue
+        this.currentValue = if (type == Types.SWITCH_SLIDER || type == Types.POPUP_SWITCH_SLIDER)
+            currentValue!! * 10 else currentValue
     }
 
     override fun toString(): String =
-        "\n[SIDE]\nsideItemId = $sideItemId\nownerId = $ownerId\nname = $name\ntype = $type\ndataList = $dataList\ncurrentValue = $currentValue"
+        "\n[SIDE]\nsideItemId = $sideItemId\nownerId = $ownerId\nname = $name\ntype = ${type.name}\ndataList = $dataList\ncurrentValue = $currentValue"
 }
 
 /**

@@ -5,7 +5,7 @@ class Chart : MainItem {
     override var ownerId: Long = 0
     var name: String
     var measure: String
-    var type: String
+    var type: Types
     var basicDataList: List<Float>
     var modelDataList: List<Float>
     var strategyData: Float
@@ -15,7 +15,7 @@ class Chart : MainItem {
         ownerId: Long,
         name: String,
         measure: String,
-        type: String,
+        type: Types,
         basicDataList: List<Float>,
         modelDataList: List<Float>,
         strategyData: Float
@@ -34,7 +34,7 @@ class Chart : MainItem {
         ownerId: Long,
         name: String,
         measure: String,
-        type: String,
+        type: Types,
         basicDataList: List<Float>,
         modelDataList: List<Float>,
         strategyData: Float
@@ -49,7 +49,7 @@ class Chart : MainItem {
     }
 
     override fun toString(): String =
-        "\n[CHART]\nchartId = $chartId\nownerId = $ownerId\nname = $name\nmeasure = $measure\ntype = $type\nbasicDataList = $basicDataList\nmodelDataList = $modelDataList\nstrategyData = $strategyData"
+        "\n[CHART]\nchartId = $chartId\nownerId = $ownerId\nname = $name\nmeasure = $measure\ntype = ${type.name}\nbasicDataList = $basicDataList\nmodelDataList = $modelDataList\nstrategyData = $strategyData"
 }
 
 /**
