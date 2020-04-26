@@ -71,15 +71,12 @@ fun SP_E.deleteAll() = this.apply {
 fun saveState() {
     pageBuilder.getPageByName(openPage)?.sideItems?.forEach { item ->
         when {
-            item.type.name.contains("SLIDER") -> get<BSB>(item.sideItemId.toInt()).apply {
-                editor.save(this.id.toString(), this.progressFloat)
-            }
-            item.type.name.contains("SWITCH") -> get<Sw>(item.sideItemId.toInt()).apply {
-                editor.save(this.id.toString(), this.isChecked)
-            }
-            item.type.name.contains("RADIO") -> get<RG>(item.sideItemId.toInt()).apply {
-                editor.save(this.id.toString(), this.getPositionOfCheckedButton())
-            }
+            item.type.name.contains("SLIDER") -> get<BSB>(item.sideItemId.toInt())
+                .apply { editor.save(this.id.toString(), this.progressFloat) }
+            item.type.name.contains("SWITCH") -> get<Sw>(item.sideItemId.toInt())
+                .apply { editor.save(this.id.toString(), this.isChecked) }
+            item.type.name.contains("RADIO") -> get<RG>(item.sideItemId.toInt())
+                .apply { editor.save(this.id.toString(), this.getPositionOfCheckedButton()) }
         }
         isSave = true
     }

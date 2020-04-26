@@ -1,5 +1,6 @@
 package com.agnitt.vdt.data
 
+import android.util.Log
 import com.agnitt.vdt.builders.ChartsBuilder.Companion.chartsBuilder
 import com.agnitt.vdt.builders.PageBuilder.Companion.pages
 import com.agnitt.vdt.models.*
@@ -72,6 +73,7 @@ fun JSONArray.getSideMenuObjects() = mutableListOf<SideItem>().apply {
 }
 
 fun JSONArray.changeRelatedItems() {
+    Log.d("LOG", this.toString())
     if (this.toString().contains("ERROR"))
         return Exception(this.toString()).printStackTrace()
     try {

@@ -29,21 +29,29 @@ class RadioGroup {
 
     fun create(
         position: Int?, id: Int, parent: VG?, text: String,
-        dataSet: List<Float>, checkedIndex: Int
+        dataSet: List<Float>, checkedIndexStart: Int
     ) = ((parent inflate R.layout.tmpl_radio_group) as RG).apply {
         val checkedSave: Int
 
         if (preferences.contains(id.toString())) {
             checkedSave = preferences.get<Int>(id.toString())!!
-            parser.getReaction(id, dataSet[checkedSave])
             isSave = true
-        } else checkedSave = checkedIndex
+        } else checkedSave = checkedIndexStart
+        parser.getReaction(id, dataSet[checkedSave])
 
         this.id = id
         tw_radio_group.text = text
 
         dataSet.forEachIndexed { i, value ->
-            this.addView(rButton(id * 10000 + i, value, i, checkedSave == i, checkedIndex == i))
+            this.addView(
+                rButton(
+                    id * 10000 + i,
+                    value,
+                    i,
+                    checkedSave == i,
+                    checkedIndexStart == i
+                )
+            )
         }
         setOnCheckedChangeListener { group, id ->
             parser.getReaction(group.id, get<RB>(id).text.toString().toFloat())

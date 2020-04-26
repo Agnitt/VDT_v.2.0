@@ -3,6 +3,7 @@ package com.agnitt.vdt.data
 import com.agnitt.vdt.data.Parser.Companion.parser
 import com.agnitt.vdt.data.Saver.Companion.editor
 import com.agnitt.vdt.data.Saver.Companion.permanentSavingOn
+import com.agnitt.vdt.library.getPositionOfCheckedButton
 import com.agnitt.vdt.utils.BSB
 import com.agnitt.vdt.utils.RG
 import com.agnitt.vdt.utils.Sw
@@ -29,7 +30,9 @@ class Listener : BubbleSeekBar.OnProgressChangedListener {
 
 fun touchSeekBar(slider: BSB, progressFloat: Float) {
     slider.permanentSavingState()
-    parser.getReaction(slider.id, progressFloat)
+    val progress = progressFloat /
+            (if (slider.tag == com.agnitt.vdt.models.Types.SWITCH_SLIDER) 10 else 1)
+    parser.getReaction(slider.id, progress)
 }
 
 fun BSB.permanentSavingState() {
@@ -41,5 +44,5 @@ fun Sw.permanentSavingState() {
 }
 
 fun RG.permanentSavingState() {
-    if (permanentSavingOn) editor.save(id.toString(), this.checkedRadioButtonId)
+    if (permanentSavingOn) editor.save(id.toString(), this.getPositionOfCheckedButton())
 }

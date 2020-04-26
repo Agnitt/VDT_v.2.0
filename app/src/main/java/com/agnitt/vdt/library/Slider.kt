@@ -6,6 +6,7 @@ import com.agnitt.vdt.data.Parser.Companion.parser
 import com.agnitt.vdt.data.Saver.Companion.isSave
 import com.agnitt.vdt.data.Saver.Companion.preferences
 import com.agnitt.vdt.data.get
+import com.agnitt.vdt.models.Types
 import com.agnitt.vdt.utils.LL
 import com.agnitt.vdt.utils.VG
 import com.agnitt.vdt.utils.add
@@ -30,11 +31,12 @@ class DiscreteSlider {
         val progressSave: Float
         if (preferences.contains(id.toString())) {
             progressSave = preferences.get<Float>(id.toString())!!
-            parser.getReaction(id, progressSave)
             isSave = true
-        } else progressSave = progress
+        } else progressSave = dataList[0]
+        parser.getReaction(id, progressSave)
         slider_discrete.apply {
             this.id = id
+            tag = Types.DISCRETE_SLIDER.name
             configBuilder.apply {
                 min(dataList[0])
                 max(dataList[1])
@@ -69,16 +71,17 @@ class SwitchSlider {
         val progressSave: Float
         if (preferences.contains(id.toString())) {
             progressSave = preferences.get<Float>(id.toString())!!
-            parser.getReaction(id, progressSave)
             isSave = true
-        } else progressSave = progress
+        } else progressSave = dataList[0]
+        parser.getReaction(id, progressSave / 10)
         slider_switch.apply {
             this.id = id
+            tag = Types.SWITCH_SLIDER.name
             configBuilder.apply {
                 min(dataList[0])
                 max(dataList[1])
                 sectionCount(1)
-                progress(if (progressSave > min) this.max else this.min)
+                progress(if (progressSave > min + (max - min) / 2) this.max else this.min)
                 thumbRadius((thumbRadius / 1.3).toInt())
                 build()
             }

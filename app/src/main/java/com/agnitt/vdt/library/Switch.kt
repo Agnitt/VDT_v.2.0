@@ -27,9 +27,10 @@ class Switch {
             tag = text
             if (preferences.contains(id.toString())) {
                 isChecked = preferences.get<Boolean>(id.toString())!!
-                parser.getReaction(id, if (isChecked) 1f else 0f)
                 isSave = true
-            } else isChecked = state
+            } else isChecked = false
+            parser.getReaction(id, if (isChecked) 1f else 0f)
+
             setOnClickListener {
                 (it as Sw).permanentSavingState()
                 parser.getReaction(it.id, if (isChecked) 1f else 0f)
